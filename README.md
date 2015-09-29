@@ -1,4 +1,4 @@
-TBuddies
+Buddies
 ===
 
 The goal of this recruitment task is to verify your PHP level and understanding of Zend Framework 2 and ORM Doctrine 2 by a person applying for a PHP Developer position. The app created during this task should support adding, editing, deleting and browsing database records.
