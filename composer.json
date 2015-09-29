@@ -1,14 +1,17 @@
 {
-    "name": "zendframework/skeleton-application",
-    "description": "Skeleton Application for ZF2",
-    "license": "BSD-3-Clause",
+    "name": "wbondar/buddies",
+    "description": "",
+    "license": "MIT",
     "keywords": [
         "framework",
+        "doctrine",
         "zf2"
     ],
     "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.5",
-        "zendframework/zendframework": "~2.5"
+        "zendframework/zendframework": "~2.5",
+        "doctrine/orm" : "2.4.*",
+        "doctrine/data-fixtures" : "1.1.1"
     }
 }
