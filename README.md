@@ -1,118 +1,44 @@
-ZendSkeletonApplication
-=======================
+TBuddies
+===
 
-Introduction
-------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+The goal of this recruitment task is to verify your PHP level and understanding of Zend Framework 2 and ORM Doctrine 2 by a person applying for a PHP Developer position. The app created during this task should support adding, editing, deleting and browsing database records.
 
-Installation using Composer
----------------------------
+The first assumption of the app is the capability to managing persons (CRUD)
 
-The easiest way to create a new ZF2 project is to use [Composer](https://getcomposer.org/). If you don't have it already installed, then please install as per the [documentation](https://getcomposer.org/doc/00-intro.md).
+* Id – automatically generated value
 
+* Name – deleting white spaces from the begining and end of string, changing first letter to capital letter
 
-Create your new ZF2 project:
+* Last name - deleting white spaces from the begining and end of string, changing first letter to capital letter
 
-    composer create-project -n -sdev zendframework/skeleton-application path/to/install
+* Email – validation if e-mail address is correct
 
+* Phone number – force following enter format ddd-ddd-ddd (only numbers)
 
+The second assumption of the app is the capability to match persons as friends (Create, Delete, connection type many to many) - with a assumption that when a person X is a friend of person Y, then person Y is a friend of person X, you can't be a friend to yourself and the "declaration of friendship" can occur only once (you can add persons as a friend only after you deleted them from your list of friends). Short task description:
 
-### Installation using a tarball with a local Composer
+* Download Zend Skeleton Application with GIT
 
-If you don't have composer installed globally then another way to create a new ZF2 project is to download the tarball and install it:
+* Update libraries with Composer
 
-1. Download the [tarball](https://github.com/zendframework/ZendSkeletonApplication/tarball/master), extract it and then install the dependencies with a locally installed Composer:
+* Integrate ORM Doctrine with the app
 
-        cd my/project/dir
-        curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
-    
+* Design and create classes for the database
 
-2. Download composer into your project directory and install the dependencies:
+* Generate database with Doctrine ORM console tool
 
-        curl -s https://getcomposer.org/installer | php
-        php composer.phar install
+* Create a form for adding new persons (with prompts about validation)
 
-If you don't have access to curl, then install Composer into your project as per the [documentation](https://getcomposer.org/doc/00-intro.md).
+* Create a table displaying persons (with a "Action" column containing "Details", "Edit" and "Delete" buttons transfering to adequate views)
 
-Web server setup
-----------------
+* Create a person edition form
 
-### PHP CLI server
+* Create a "Details" page displaying all data about a person, list of friends (table with column names: "Name", "Last name" and "Action" with a delete button in column) and "Add friend" button below (transfering to "Add a new friend" form)
 
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root
-directory:
+* Create a form for adding new friends (display all persons with dropdown list or checkbox group)
 
-    php -S 0.0.0.0:8080 -t public/ public/index.php
+* Add links to "Persons list" and "Add person" in the navigation bar
 
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
+The app will be verified by the code estetics, correctness, optymalization and usage of ZF2 solutions. We put a lot of emphasis on usage of newest versions of libraries and modules.
 
-**Note:** The built-in CLI server is *for development only*.
-
-### Vagrant server
-
-This project supports a basic [Vagrant](http://docs.vagrantup.com/v2/getting-started/index.html) configuration with an inline shell provisioner to run the Skeleton Application in a [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
-
-1. Run vagrant up command
-
-    vagrant up
-
-2. Visit [http://localhost:8085](http://localhost:8085) in your browser
-
-Look in [Vagrantfile](Vagrantfile) for configuration details.
-
-### Apache setup
-
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
-
-    <VirtualHost *:80>
-        ServerName zf2-app.localhost
-        DocumentRoot /path/to/zf2-app/public
-        <Directory /path/to/zf2-app/public>
-            DirectoryIndex index.php
-            AllowOverride All
-            Order allow,deny
-            Allow from all
-            <IfModule mod_authz_core.c>
-            Require all granted
-            </IfModule>
-        </Directory>
-    </VirtualHost>
-
-### Nginx setup
-
-To setup nginx, open your `/path/to/nginx/nginx.conf` and add an
-[include directive](http://nginx.org/en/docs/ngx_core_module.html#include) below
-into `http` block if it does not already exist:
-
-    http {
-        # ...
-        include sites-enabled/*.conf;
-    }
-
-
-Create a virtual host configuration file for your project under `/path/to/nginx/sites-enabled/zf2-app.localhost.conf`
-it should look something like below:
-
-    server {
-        listen       80;
-        server_name  zf2-app.localhost;
-        root         /path/to/zf2-app/public;
-
-        location / {
-            index index.php;
-            try_files $uri $uri/ @php;
-        }
-
-        location @php {
-            # Pass the PHP requests to FastCGI server (php-fpm) on 127.0.0.1:9000
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_param  SCRIPT_FILENAME /path/to/zf2-app/public/index.php;
-            include fastcgi_params;
-        }
-    }
-
-Restart the nginx, now you should be ready to go!
+Every improvement in guidelines (i.e. usage of Twitter Bootstrap, jQuery, AJAX and additional functionality of Zend 2 framework such as: filters, decorators, AJAX + JSON, pagination, translations, authorization, ACL, cache, captcha, sessions etc.) will be a trump card (of course it may widen the app functionality - we like to work with creative people).
