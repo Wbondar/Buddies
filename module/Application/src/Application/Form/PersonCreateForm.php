@@ -24,7 +24,12 @@ extends Form
 			array 
 			(
 				  'name' => 'nameFirst'
-				, 'type' => 'text'
+				, 'attributes' => array
+				(
+			         'type' => 'text'
+			        , 'required' => 'required'
+			        , 'pattern'  => '^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$'
+			    )
 			)
 		)
 		;
@@ -33,7 +38,12 @@ extends Form
 			array 
 			(
 				  'name' => 'nameLast'
-				, 'type' => 'text'
+				, 'attributes' => array
+				(
+			        'type' => 'text',
+			        'required' => 'required',
+			        'pattern'  => '^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$'
+			    )
 			)
 		)
 		;

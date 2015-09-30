@@ -33,7 +33,12 @@ class ContactService
 		$target = $this->personRepo->find($data['target_id']);
 		$contact->setTarget($target);
 		$contact->setDateEstablished(new \DateTime ( ));
-		// TODO Implement the feature properly.
+		/*
+		 * Note: This does not look pretty, but in order to 
+		 * save room for different types of contacts,
+		 * which might not be bidiretional,
+		 * database entry duplicated.
+		 */
 		$reflectedContact = new Contact ( );
 		$reflectedContact->setSource($target);
 		$reflectedContact->setTarget($source);

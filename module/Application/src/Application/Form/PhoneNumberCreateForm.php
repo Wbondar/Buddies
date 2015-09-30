@@ -24,7 +24,12 @@ extends Form
 			array 
 			(
 				  'name' => 'value'
-				, 'type' => 'text'
+				, 'attributes' => array
+				(
+			          'type' => 'tel'
+			        , 'required' => 'required'
+			        , 'pattern'  => '\d{3}[\-]\d{3}[\-]\d{3}'
+			    )
 			)
 		)
 		;

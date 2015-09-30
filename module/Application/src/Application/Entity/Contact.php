@@ -34,7 +34,7 @@ class Contact
 	private $source;
 	/**
 	 * @var Person
-	 * @ManyToOne(targetEntity="Person", cascade={"persist"})
+	 * @ManyToOne(targetEntity="Person")
 	 */
 	private $target;
 	/**
