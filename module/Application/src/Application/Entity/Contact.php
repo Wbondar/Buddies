@@ -26,12 +26,12 @@ class Contact
 	private $id;
 	/**
 	 * @var Person
-	 * @ManyToOne(targetEntity="Person",inversedBy="contacts")
+	 * @ManyToOne(targetEntity="Person", cascade={"persist"}, inversedBy="contacts")
 	 */
 	private $source;
 	/**
 	 * @var Person
-	 * @ManyToOne(targetEntity="Person")
+	 * @ManyToOne(targetEntity="Person", cascade={"persist"})
 	 */
 	private $target;
 	/**

@@ -26,7 +26,7 @@ class PhoneNumber
 	private $id;
 	/**
 	 * @var Person
-	 * @ManyToOne(targetEntity="Person",inversedBy="phoneNumbers")
+	 * @ManyToOne(targetEntity="Person",inversedBy="phoneNumbers",cascade={"persist"})
 	 */
 	private $owner;
 	/**

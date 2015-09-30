@@ -2,6 +2,8 @@
 
 namespace Application\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -28,7 +30,7 @@ class Credentials
 	private $id;
 	/**
 	 * @var Person
-	 * @ManyToOne(targetEntity="Person",inversedBy="credentials")
+	 * @ManyToOne(targetEntity="Person",inversedBy="credentials",cascade={"persist"})
 	 */
 	private $owner;
 	/**

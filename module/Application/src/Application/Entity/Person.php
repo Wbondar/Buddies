@@ -2,6 +2,8 @@
 
 namespace Application\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -25,7 +27,7 @@ class Person
 	private $id;
 	/**
 	 * @var Credentials[]
-	 * @OneToMany(targetEntity="Credentials",mappedBy="owner")
+	 * @OneToMany(targetEntity="Credentials",mappedBy="owner",cascade={"persist"})
 	 */
 	private $credentials;
 	/**
@@ -35,15 +37,15 @@ class Person
 	private $phoneNumbers;
 	/**
 	 * @var Contact[]
-	 * @OneToMany(targetEntity="Contact",mappedBy="source")
+	 * @OneToMany(targetEntity="Contact",mappedBy="source",cascade={"persist"})
 	 */
 	private $contacts;
 
 	public function __construct ( )
 	{
-		$this->credentials = ArrayCollection ( );
-		$this->phoneNumbers = ArrayCollection ( );
-		$this->contacts = ArrayCollection ( );
+		$this->credentials  = new ArrayCollection ( );
+		$this->phoneNumbers = new ArrayCollection ( );
+		$this->contacts     = new ArrayCollection ( );
 	}
 
     /**
