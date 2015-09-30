@@ -9,7 +9,8 @@ implements FactoryInterface
 {
 	public function createService(ServiceLocatorInterface $serviceLocator)
 	{
-		$personService = $serviceLocator->getServiceLocator()->get('Application\Service\Contact');
-		return new ContactController($personService);
+		$contactService = $serviceLocator->getServiceLocator()->get('Application\Service\Contact');
+		$personService = $serviceLocator->getServiceLocator()->get('Application\Service\Person');
+		return new ContactController($contactService, $personService);
 	}
 }

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * Person entity.
- * @Entity 
+ * @Entity(repositoryClass="PersonRepository")
  */
 
 class Person
@@ -37,7 +37,7 @@ class Person
 	private $phoneNumbers;
 	/**
 	 * @var Contact[]
-	 * @OneToMany(targetEntity="Contact",mappedBy="source",cascade={"persist"})
+	 * @OneToMany(targetEntity="Contact",mappedBy="source")
 	 */
 	private $contacts;
 

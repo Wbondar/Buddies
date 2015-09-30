@@ -8,11 +8,14 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Contact entity.
  * Each person may have zero or more contacts.
  * @Entity
+ * @Table(uniqueConstraints={@UniqueConstraint(name="uk_contact_source_id_target_id", columns={"source_id", "target_id"})})
  */
 
 class Contact
@@ -26,7 +29,7 @@ class Contact
 	private $id;
 	/**
 	 * @var Person
-	 * @ManyToOne(targetEntity="Person", cascade={"persist"}, inversedBy="contacts")
+	 * @ManyToOne(targetEntity="Person", inversedBy="contacts")
 	 */
 	private $source;
 	/**

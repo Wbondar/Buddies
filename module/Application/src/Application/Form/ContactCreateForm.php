@@ -12,27 +12,53 @@ extends Form
 		parent::__construct($name);
 		$this->add
 		(
-			array 
+			array
 			(
-				  'name' => 'source_id'
-				, 'type' => 'hidden'
+			    'type' => 'hidden',
+			    'name' => 'source_id'
 			)
-		)
-		;
+		);
+		$this->add
+		(
+			array
+			(
+			    'type' => 'hidden',
+			    'name' => 'target_id'
+			)
+		);
+		/*$this->add
+		(
+			array
+			(
+			    'type' => 'DoctrineModule\Form\Element\ObjectHidden',
+			    'name' => 'source',
+			    'options' => array
+			    (
+			        'object_manager' => $objectManager,
+			        'target_class'   => 'Application\Entity\Person',
+			        'property'       => 'id',
+			    )
+			)
+		);
+		$this->add
+		(
+			array
+			(
+			    'type' => 'DoctrineModule\Form\Element\ObjectHidden',
+			    'name' => 'target',
+			    'options' => array
+			    (
+			        'object_manager' => $objectManager,
+			        'target_class'   => 'Application\Entity\Person',
+			        'property'       => 'id',
+			    )
+			)
+		);*/
 		$this->add
 		(
 			array 
 			(
-				  'name' => 'target_id'
-				, 'type' => 'hidden'
-			)
-		)
-		;
-		$this->add
-		(
-			array 
-			(
-				'type' => 'submit'
+				'name' => 'submit', 'type' => 'submit'
 			)
 		)
 		;

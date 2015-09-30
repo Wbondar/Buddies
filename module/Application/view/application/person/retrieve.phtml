@@ -1,0 +1,41 @@
+<article id='<?php echo $person->getId( ); ?>'>
+  <h1>Person.</h1>
+  <?php foreach ($person->getCredentials( ) as $credentials): ?>
+    <section>
+      <h2>Credentials.</h2>
+      <section>
+        <h3>First name.</h3>
+        <p><?php echo $credentials->getNameFirst( ); ?></p>
+      </section>
+      <section>
+        <h3>Last name.</h3>
+        <p><?php echo $credentials->getNameLast( ); ?></p>
+      </section>
+    </section>
+  <?php endforeach ?>
+  <section>
+    <h2>Contacts.</h2>
+    <?php foreach ($person->getContacts( ) as $contact): ?>
+      <article id='<?php echo $contact->getId( ); ?>' />
+        <h3><a href='<?php echo $this->url("application", array("controller" => "person", "action" => "retrieve", "id" => $contact->getTarget( )->getId( ))); ?>'>Contact #<?php echo $contact->getId( ); ?></a></h3>
+        <?php foreach ($contact->getTarget( )->getCredentials( ) as $targetCredentials): ?>
+          <p><?php echo $targetCredentials->getNameFirst( ) . ' ' . $targetCredentials->getNameLast( ); ?></p>
+          <section>
+            <h4>Delete contact.</h4>
+            <form action='<?php echo $this->url('application', array('controller' => 'contact', 'action' => 'destroy', 'id' => $contact->getId( ))); ?>' method='POST'>
+              <input type='submit' />
+            </form>
+          </section>
+        <?php endforeach ?>
+      </article>
+    <?php endforeach ?>
+    <?php if (count($person->getContacts( )) < 1): ?>
+      No contacts found.
+    <?php endif ?>
+    <!-- TODO Implement session hangling instead of storing id of source in route. -->
+    <form method='GET' action='<?php echo $this->url('contact_create', array('id' => $person->getId( ))); ?>'>
+      <input type='text' name='trait' placeholder='Name of a person to contact with.' required/>
+      <input type='submit'>
+    </form>
+  </section>
+</article>

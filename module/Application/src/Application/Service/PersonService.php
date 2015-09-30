@@ -48,6 +48,11 @@ class PersonService
 		return $this->personRepo->find($id);
 	}
 
+	public function retrieveWithCredentialsLike ($trait)
+	{
+		return $this->personRepo->findWithCredentialsLike($trait);
+	}
+
 	public function destroy (Person $person)
 	{
 		return $this->personRepo->destroy($person);

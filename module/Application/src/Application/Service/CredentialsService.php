@@ -29,18 +29,18 @@ class CredentialsService
 		$credentials->setOwner($owner);
 		$credentials->setNameFirst($nameFirst);
 		$credentials->setNameLast($nameLast);
-		$objectManager->persist($credentials);
-		$objectManager->flush( );
+		$this->objectManager->persist($credentials);
+		$this->objectManager->flush( );
 		return $credentials;
 	}
 
 	public function retrieve ($id)
 	{
-		return $credentialsRepo->find($id);
+		return $this->credentialsRepo->find($id);
 	}
 
 	public function destroy (Credentials $credentials)
 	{
-		return $credentialsRepo->destroy($credentials);
+		return $this->credentialsRepo->destroy($credentials);
 	}
 }

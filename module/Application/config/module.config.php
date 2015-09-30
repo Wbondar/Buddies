@@ -14,7 +14,24 @@ return array(
     (
         'routes' => array
         (
-            'application' => array
+            'contact_create' => array 
+            (
+               'type'    => 'segment',
+               'options' => array
+               (
+                   'route'    => '/person/:id/contact/create',
+                   'constraints' => array
+                   (
+                      'id'         => '[1-9]\d*'
+                   )
+                   , 'defaults' => array
+                   (
+                         'controller' => 'Application\Controller\Contact'
+                       , 'action'     => 'create'
+                   )
+               )
+            )
+            , 'application' => array
             (
                  'type'    => 'segment',
                  'options' => array
