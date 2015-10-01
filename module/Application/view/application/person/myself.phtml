@@ -51,14 +51,12 @@
 					(
 						array
 						(
-							  'id' => $credentials->getId( )
-							, 'nameFirst' => $credentials->getNameFirst( )
+							  'nameFirst' => $credentials->getNameFirst( )
 							, 'nameLast' => $credentials->getNameLast( )
 						)
 					);
 				$credentialsUpdateForm->prepare();
 				echo $this->form()->openTag($credentialsUpdateForm);
-				echo $this->formRow($credentialsUpdateForm->get('id'));
 				echo $this->formRow($credentialsUpdateForm->get('nameFirst'));
 				echo $this->formRow($credentialsUpdateForm->get('nameLast'));
 				echo $this->formSubmit($credentialsUpdateForm->get('submit'));

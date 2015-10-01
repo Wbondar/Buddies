@@ -42,12 +42,16 @@ class CredentialsService
 	{
 		return $this->credentialsRepo->find($id);
 	}
-
-	public function update (Credentials $credentials)
+	
+	public function update (Person $person, $nameFirst, $nameLast)
 	{
+		$credentialsCollection = $person->getCredentials( );
+		$credentialsCollection->first( );
+		$credentials = $credentialsCollection->current( );
+		$credentials->setNameFirst($nameFirst);
+		$credentials->setNameLast($nameLast);
 		$this->objectManager->persist($credentials);
 		$this->objectManager->flush( );
-		return $credentials;
 	}
 
 	public function destroy (Credentials $credentials)
