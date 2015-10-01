@@ -28,8 +28,8 @@ return array(
                      )
                      , 'defaults' => array
                      (
-                           'controller' => 'Application\Controller\Index'
-                         , 'action'     => 'index'
+                           'controller' => 'Application\Controller\Person'
+                         , 'action'     => 'retrieve'
                      )
                  )
             )

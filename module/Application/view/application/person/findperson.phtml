@@ -1,3 +1,13 @@
+<section>
+	<h1>Find person.</h1>
+	<form method='GET' action='<?php echo $this->url('application', array('controller' => 'person', 'action' => 'retrieve')); ?>'>
+		<label>
+			Name of person to search for.
+			<input name='trait' required />
+		</label>
+		<input type='submit' />
+	</form>
+</section>
 <?php if ($persons != null): ?>
 	<?php foreach ($persons as $person): ?>
 		<article id='<?php echo $person->getId( ); ?>'>
@@ -5,6 +15,7 @@
 			<?php foreach ($person->getCredentials( ) as $credentials): ?>
 				<p><?php echo $credentials->getNameFirst( ) . ' ' . $credentials->getNameLast( ); ?></p>
 			<?php endforeach ?>
+			<a href='<?php echo $this->url('application', array('controller' => 'person', 'action' => 'retrieve', 'id' => $person->getId( )))?>'>Details.</a>
 			<a href='<?php echo $this->url('application', array('controller' => 'contact', 'action' => 'create', 'id' => $person->getId( )))?>'>Establish contact.</a>
 		</article>
 	<?php endforeach ?>

@@ -12,7 +12,7 @@ use Application\Form\EMailAddressCreateForm;
 use Application\Form\PhoneNumberCreateForm;
 
 class PersonController 
-extends AbstractActionController
+extends ApplicationController
 {
     private $accountService;
 	private $personService;
@@ -35,6 +35,10 @@ extends AbstractActionController
                 $person = $this->personService->retrieve($id);
                 if ($person != null)
                 {
+                    if ($this->isMyself($person))
+                    {
+                        return $this->redirectToPersonalProfile( );
+                    }
                     return array('person' => $person);   
                 }
                 $this->getResponse( )->setStatusCode(404);
