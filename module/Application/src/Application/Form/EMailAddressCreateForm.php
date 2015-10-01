@@ -14,15 +14,6 @@ extends Form
 		(
 			array 
 			(
-				  'name' => 'owner_id'
-				, 'type' => 'hidden'
-			)
-		)
-		;
-		$this->add
-		(
-			array 
-			(
 				  'name' => 'value'
 				, 'attributes' => array
 				(

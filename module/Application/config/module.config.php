@@ -61,6 +61,7 @@ return array(
             'Application\Service\Account'               => 'Application\Service\AccountServiceFactory',
             'Application\Service\Contact'               => 'Application\Service\ContactServiceFactory',
             'Application\Service\Credentials'           => 'Application\Service\CredentialsServiceFactory',
+            'Application\Service\EMailAddress'           => 'Application\Service\EMailAddressServiceFactory',
             'Application\Service\Person'                => 'Application\Service\PersonServiceFactory',
             'Application\Service\PhoneNumber'           => 'Application\Service\PhoneNumberServiceFactory',
             'translator'                                => 'Zend\Mvc\Service\TranslatorServiceFactory',
@@ -84,6 +85,7 @@ return array(
               'Application\Controller\Account'     => 'Application\Controller\AccountControllerFactory'
             , 'Application\Controller\Contact'     => 'Application\Controller\ContactControllerFactory'
             , 'Application\Controller\Credentials' => 'Application\Controller\CredentialsControllerFactory'
+            , 'Application\Controller\EMailAddress' => 'Application\Controller\EMailAddressControllerFactory'
             , 'Application\Controller\Person'      => 'Application\Controller\PersonControllerFactory'
             , 'Application\Controller\PhoneNumber' => 'Application\Controller\PhoneNumberControllerFactory'
         )
@@ -92,6 +94,7 @@ return array(
               'account'     => 'Application\Controller\Account'
             , 'contact'     => 'Application\Controller\Contact'
             , 'credentials' => 'Application\Controller\Credentials'
+            , 'emailaddress' => 'Application\Controller\EMailAddress'
             , 'person'      => 'Application\Controller\Person'
             , 'phonenumber' => 'Application\Controller\PhoneNumber'
         )
@@ -115,6 +118,10 @@ return array(
             'application/credentials/retrieve' => __DIR__ . '/../view/application/credentials/retrieve.phtml',
             'application/credentials/update'   => __DIR__ . '/../view/application/credentials/update.phtml',
             'application/credentials/destroy'  => __DIR__ . '/../view/application/credentials/destroy.phtml',
+            'application/emailaddress/create'   => __DIR__ . '/../view/application/emailaddress/create.phtml',
+            'application/emailaddress/retrieve' => __DIR__ . '/../view/application/emailaddress/retrieve.phtml',
+            'application/emailaddress/update'   => __DIR__ . '/../view/application/emailaddress/update.phtml',
+            'application/emailaddress/destroy'  => __DIR__ . '/../view/application/emailaddress/destroy.phtml',
             'application/person/create'        => __DIR__ . '/../view/application/person/create.phtml',
             'application/person/retrieve'      => __DIR__ . '/../view/application/person/retrieve.phtml',
             'application/person/myself'        => __DIR__ . '/../view/application/person/myself.phtml',

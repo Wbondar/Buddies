@@ -28,10 +28,8 @@
 					'action'
 					, $this->url('application', array('controller' => 'emailaddress', 'action' => 'create'))
 				);
-			$emailAddressCreateForm->setData(array('owner_id' => $myself->getId( )));
 			$emailAddressCreateForm->prepare();
 			echo $this->form()->openTag($emailAddressCreateForm);
-			echo $this->formRow($emailAddressCreateForm->get('owner_id'));
 			echo $this->formRow($emailAddressCreateForm->get('value'));
 			echo $this->formSubmit($emailAddressCreateForm->get('submit'));
 			echo $this->form()->closeTag();
