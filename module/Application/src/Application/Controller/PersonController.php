@@ -11,10 +11,12 @@ use Application\Form\PersonCreateForm;
 class PersonController 
 extends AbstractActionController
 {
+    private $accountService;
 	private $personService;
 
-	public function __construct ($personService)
+	public function __construct ($accountService, $personService)
 	{
+        $this->accountService = $accountService;
 		$this->personService = $personService;
 	}
 
@@ -36,26 +38,65 @@ extends AbstractActionController
          return array('form' => $form);
     }
 
-    public function retrieveAction ()
+    public function retrieveAction ( )
     {
         $request = $this->getRequest( );
         if ($request->isGet( ))
         {
             $id = $this->params( )->fromRoute("id");
             $person = $this->personService->retrieve($id);
-            return array('person' => $person);   
+            if ($person != null)
+            {
+                return array('person' => $person);   
+            }
+            $this->getResponse( )->setStatusCode(404);
+            return array ('message' => 'Could not find person.');
         }
-        // TODO Implement proper 404 error handling.
-        return array ( );
+        $this->getResponse( )->setStatusCode(405);
+        return array('message' => 'Method not allowed.');
     }
+
+    /**
+     * Since forms for updating person are located at the same page as data itself,
+     * redirection is used.
+     */
 
     public function updateAction ()
     {
-        return new ViewModel();
+        $this->getResponse( )->setStatusCode(303);
+        return $this
+            ->redirect( )
+            ->toRoute
+            (
+                  'application'
+                , array
+                (
+                      'controller' => 'person'
+                    , 'action'     => 'retrieve'
+                    , 'id'         => $this->params( )->fromRoute('id')
+                )
+            );
     }
 
-    public function destroyAction ()
+    public function myselfAction ( )
     {
-        return new ViewModel();
+        if ($this->accountService->isAuthenticated( ))
+        {
+            $account = $this->accountService->retrieve( );
+            $myself = $account->getPerson( );
+            return array ('account' => $account, 'myself' => $myself);
+        }
+        $this->getResponse( )->setStatusCode(400);
+        return $this
+            ->redirect( )
+            ->toRoute
+            (
+                  'application'
+                , array
+                (
+                      'controller' => 'account'
+                    , 'action'     => 'authenticate'
+                )
+            );
     }
 }

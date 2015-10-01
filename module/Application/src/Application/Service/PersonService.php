@@ -12,6 +12,10 @@ use Application\Entity\Contact;
 use Application\Entity\Person;
 use Application\Entity\PhoneNumber;
 
+/**
+ * Create, retreieve, update and destroy logic for persons.
+ */
+
 class PersonService
 {
 	private $objectManager;

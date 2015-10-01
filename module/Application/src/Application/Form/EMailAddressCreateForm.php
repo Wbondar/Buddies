@@ -4,7 +4,7 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 
-class PhoneNumberCreateForm
+class EMailAddressCreateForm
 extends Form
 {
 	public function __construct ($name)
@@ -26,10 +26,9 @@ extends Form
 				  'name' => 'value'
 				, 'attributes' => array
 				(
-			          'type' => 'tel'
+			          'type' => 'email'
 			        , 'required' => 'required'
-			        , 'pattern'  => '\d{3}[\-]\d{3}[\-]\d{3}'
-			        , 'placeholder' => '###-###-###'
+			        , 'placeholder' => 'example@example.com'
 			    )
 			)
 		)

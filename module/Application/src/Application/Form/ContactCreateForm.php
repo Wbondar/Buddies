@@ -58,7 +58,8 @@ extends Form
 		(
 			array 
 			(
-				'name' => 'submit', 'type' => 'submit'
+				  'name' => 'submit'
+				, 'type' => 'submit'
 			)
 		)
 		;

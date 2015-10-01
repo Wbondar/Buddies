@@ -58,11 +58,13 @@ return array(
             'Zend\Log\LoggerAbstractServiceFactory',
         ),
         'factories' => array(
-            'translator'                      => 'Zend\Mvc\Service\TranslatorServiceFactory',
-            'Application\Service\Contact'     => 'Application\Service\ContactServiceFactory',
-            'Application\Service\Credentials' => 'Application\Service\CredentialsServiceFactory',
-            'Application\Service\Person'      => 'Application\Service\PersonServiceFactory',
-            'Application\Service\PhoneNumber' => 'Application\Service\PhoneNumberServiceFactory'
+            'Application\Service\Account'               => 'Application\Service\AccountServiceFactory',
+            'Application\Service\Contact'               => 'Application\Service\ContactServiceFactory',
+            'Application\Service\Credentials'           => 'Application\Service\CredentialsServiceFactory',
+            'Application\Service\Person'                => 'Application\Service\PersonServiceFactory',
+            'Application\Service\PhoneNumber'           => 'Application\Service\PhoneNumberServiceFactory',
+            'translator'                                => 'Zend\Mvc\Service\TranslatorServiceFactory',
+            'Zend\Authentication\AuthenticationService' => function($serviceManager) {return $serviceManager->get('doctrine.authenticationservice.orm_default');}
         ),
     ),
     'translator' => array(
@@ -79,26 +81,30 @@ return array(
     (
           'factories' => array 
         (
-              'Application\Controller\Contact'     => 'Application\Controller\ContactControllerFactory'
+              'Application\Controller\Account'     => 'Application\Controller\AccountControllerFactory'
+            , 'Application\Controller\Contact'     => 'Application\Controller\ContactControllerFactory'
             , 'Application\Controller\Credentials' => 'Application\Controller\CredentialsControllerFactory'
             , 'Application\Controller\Person'      => 'Application\Controller\PersonControllerFactory'
             , 'Application\Controller\PhoneNumber' => 'Application\Controller\PhoneNumberControllerFactory'
         )
         , 'aliases' => array 
         (
-              'contact'     => 'Application\Controller\Contact'
-            , 'credentials'  => 'Application\Controller\Credentials'
+              'account'     => 'Application\Controller\Account'
+            , 'contact'     => 'Application\Controller\Contact'
+            , 'credentials' => 'Application\Controller\Credentials'
             , 'person'      => 'Application\Controller\Person'
             , 'phonenumber' => 'Application\Controller\PhhoneNumber'
         )
     )
-    , 'view_manager' => array(
+    , 'view_manager' => array
+    (
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
-        'template_map' => array(
+        'template_map' => array
+        (
             'layout/layout'                    => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index'          => __DIR__ . '/../view/application/index/index.phtml',
             'application/contact/create'       => __DIR__ . '/../view/application/contact/create.phtml',
@@ -111,6 +117,7 @@ return array(
             'application/credentials/destroy'  => __DIR__ . '/../view/application/credentials/destroy.phtml',
             'application/person/create'        => __DIR__ . '/../view/application/person/create.phtml',
             'application/person/retrieve'      => __DIR__ . '/../view/application/person/retrieve.phtml',
+            'application/person/myself'        => __DIR__ . '/../view/application/person/myself.phtml',
             'application/person/update'        => __DIR__ . '/../view/application/person/update.phtml',
             'application/person/destroy'       => __DIR__ . '/../view/application/person/destroy.phtml',
             'application/phonenumber/create'   => __DIR__ . '/../view/application/phonenumber/create.phtml',
@@ -125,31 +132,44 @@ return array(
         ),
     ),
     // Placeholder for console routes
-    'console' => array(
-        'router' => array(
-            'routes' => array(
-            ),
-        ),
-    ),
-
-    'doctrine' => array
+    'console' => array
     (
-      'driver' => array
-      (
-        'application_entities' => array
+        'router' => array
         (
-          'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-          'cache' => 'array',
-          'paths' => array(__DIR__ . '/../src/Application/Entity')
-        ),
-
-        'orm_default' => array
-        (
-          'drivers' => array
-          (
-            'Application\Entity' => 'application_entities'
-          )
+            'routes' => array()
         )
-      )
+    )
+    , 'doctrine' => array
+    (
+        'driver' => array
+        (
+            'application_entities' => array
+            (
+                  'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver'
+                , 'cache' => 'array'
+                , 'paths' => array(__DIR__ . '/../src/Application/Entity')
+            )
+
+            , 'orm_default' => array
+            (
+                'drivers' => array
+                (
+                    'Application\Entity' => 'application_entities'
+                )
+            )
+        )
+        , 'authentication' => array
+        (
+            'orm_default' => array
+            (
+                  'object_manager'      => 'Doctrine\ORM\EntityManager'
+                , 'identity_class'      => 'Application\Entity\Account'
+                , 'identity_property'   => 'username'
+                , 'credential_property' => 'password'
+                , 'credential_callable' => function(\Application\Entity\Account $account, $passwordGiven) {
+                    return \Application\Service\AccountService::checkPassword($passwordGiven, $account->getPassword( ));
+                }
+            )
+        )
     )
 );

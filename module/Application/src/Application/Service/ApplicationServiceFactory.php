@@ -7,6 +7,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * Logic of looking up for Doctrine object manager 
+ * is centralized in abstract class of name ApplicationServiceFactory.
+ */
+
 abstract class ApplicationServiceFactory
 implements FactoryInterface
 {

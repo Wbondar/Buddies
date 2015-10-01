@@ -27,14 +27,19 @@ class Person
 	private $id;
 	/**
 	 * @var Credentials[]
-	 * @OneToMany(targetEntity="Credentials",mappedBy="owner",cascade={"persist"})
+	 * @OneToMany(targetEntity="Credentials",mappedBy="owner")
 	 */
 	private $credentials;
-	/**
-	 * @var PhoneNumber[]
-	 * @OneToMany(targetEntity="PhoneNumber",mappedBy="owner")
-	 */	
-	private $phoneNumbers;
+    /**
+     * @var PhoneNumber[]
+     * @OneToMany(targetEntity="PhoneNumber",mappedBy="owner")
+     */ 
+    private $phoneNumbers;
+    /**
+     * @var EMailAddress[]
+     * @OneToMany(targetEntity="EMailAddress",mappedBy="owner")
+     */ 
+    private $emailAddresses;
 	/**
 	 * @var Contact[]
 	 * @OneToMany(targetEntity="Contact",mappedBy="source")
@@ -43,9 +48,10 @@ class Person
 
 	public function __construct ( )
 	{
-		$this->credentials  = new ArrayCollection ( );
-		$this->phoneNumbers = new ArrayCollection ( );
-		$this->contacts     = new ArrayCollection ( );
+		$this->credentials    = new ArrayCollection ( );
+        $this->phoneNumbers   = new ArrayCollection ( );
+        $this->emailAddresses = new ArrayCollection ( );
+		$this->contacts       = new ArrayCollection ( );
 	}
 
     /**
@@ -155,5 +161,38 @@ class Person
     public function getContacts()
     {
         return $this->contacts;
+    }
+
+    /**
+     * Add emailAddresses
+     *
+     * @param \Application\Entity\EMailAddress $emailAddresses
+     * @return Person
+     */
+    public function addEmailAddress(\Application\Entity\EMailAddress $emailAddresses)
+    {
+        $this->emailAddresses[] = $emailAddresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove emailAddresses
+     *
+     * @param \Application\Entity\EMailAddress $emailAddresses
+     */
+    public function removeEmailAddress(\Application\Entity\EMailAddress $emailAddresses)
+    {
+        $this->emailAddresses->removeElement($emailAddresses);
+    }
+
+    /**
+     * Get emailAddresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmailAddresses()
+    {
+        return $this->emailAddresses;
     }
 }

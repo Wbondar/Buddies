@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Credentials entity.
@@ -17,6 +19,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
  * Separated from person entity in order to 
  * save room for globalization.
  * @Entity
+ * @Table(uniqueConstraints={@UniqueConstraint(name="uk_credentials_nameFirst_nameLast", columns={"nameFirst", "nameLast"}),@UniqueConstraint(name="uk_credentials_owner_id_id", columns={"owner_id", "id"})})
  */
 
 class Credentials
@@ -30,7 +33,7 @@ class Credentials
 	private $id;
 	/**
 	 * @var Person
-	 * @ManyToOne(targetEntity="Person",inversedBy="credentials",cascade={"persist"})
+	 * @ManyToOne(targetEntity="Person",inversedBy="credentials")
 	 */
 	private $owner;
 	/**
@@ -40,7 +43,7 @@ class Credentials
 	private $nameFirst;
 	/**
 	 * @var string
-	 * @Column(type="string")
+	 * @Column(type="string",nullable=true)
 	 */
 	private $nameLast;
 

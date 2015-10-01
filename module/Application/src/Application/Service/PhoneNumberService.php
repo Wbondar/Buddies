@@ -10,6 +10,10 @@ use Application\Entity\Contact;
 use Application\Entity\Person;
 use Application\Entity\PhoneNumber;
 
+/**
+ * Create, retreieve, update and destroy logic for phone numbers.
+ */
+
 class PhoneNumberService
 {
 	private $objectManager;
@@ -28,18 +32,23 @@ class PhoneNumberService
 		$phoneNumber = new PhoneNumber ( );
 		$phoneNumber->setOwner($owner);
 		$phoneNumber->setValue($value);
-		$objectManager->persist($phoneNumber);
-		$objectManager->flush( );
+		$this->objectManager->persist($phoneNumber);
+		$this->objectManager->flush( );
 		return $phoneNumber;
 	}
 
 	public function retrieve ($id)
 	{
-		return $phoneNumberRepo->find($id);
+		return $this->phoneNumberRepo->find($id);
+	}
+
+	public function retrieveBy ($traits)
+	{
+		return $this->phoneNumberRepo->findBy($traits);
 	}
 
 	public function destroy (PhoneNumber $phoneNumber)
 	{
-		return $phoneNumberRepo->destroy($phoneNumber);
+		return $this->phoneNumberRepo->destroy($phoneNumber);
 	}
 }

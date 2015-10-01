@@ -64,10 +64,10 @@ class Person extends \Application\Entity\Person implements \Doctrine\ORM\Proxy\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'credentials', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'phoneNumbers', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'contacts');
+            return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'credentials', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'phoneNumbers', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'emailAddresses', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'contacts');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'credentials', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'phoneNumbers', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'contacts');
+        return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'credentials', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'phoneNumbers', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'emailAddresses', '' . "\0" . 'Application\\Entity\\Person' . "\0" . 'contacts');
     }
 
     /**
@@ -285,6 +285,39 @@ class Person extends \Application\Entity\Person implements \Doctrine\ORM\Proxy\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContacts', array());
 
         return parent::getContacts();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addEmailAddress(\Application\Entity\EMailAddress $emailAddresses)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addEmailAddress', array($emailAddresses));
+
+        return parent::addEmailAddress($emailAddresses);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeEmailAddress(\Application\Entity\EMailAddress $emailAddresses)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeEmailAddress', array($emailAddresses));
+
+        return parent::removeEmailAddress($emailAddresses);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getEmailAddresses()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmailAddresses', array());
+
+        return parent::getEmailAddresses();
     }
 
 }

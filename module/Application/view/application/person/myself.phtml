@@ -1,0 +1,11 @@
+<?php 
+if ($myself)
+{
+	$credentials = $myself->getCredentials( );
+	$credentials->first( );
+	$name = $credentials->get(0)->getNameFirst( );
+}
+echo '<h2>Hello, ' . $name . '!</h2>'; 	
+echo '<p>You are logged in as ' . $account->getUsername( ) . '.</p>';
+echo '<p>TODO Implement personal profile.</p>';
+?>

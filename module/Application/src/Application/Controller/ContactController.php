@@ -25,14 +25,27 @@ extends AbstractActionController
          $source = $this->personService->retrieve($this->params( )->fromRoute("id"));
          $persons = array ( );
          $request = $this->getRequest();
-         if ($request->isPost()) {
+         if ($request->isPost()) 
+         {
             // TODO Implement input filter for form.
              //$form->setInputFilter(new ContactCreateInputFilter ( ));
              $form->setData($request->getPost());
 
-             if ($form->isValid()) {
+             if ($form->isValid()) 
+             {
                 $contact = $this->contactService->create($form->getData( ));
-                return $this->redirect()->toRoute('application', array('controller' => 'person', 'action' => 'retrieve', 'id' => $source->getId( )));
+                return $this
+                    ->redirect( )
+                    ->toRoute
+                    (
+                          'application'
+                        , array
+                        (
+                              'controller' => 'person'
+                            , 'action'     => 'retrieve'
+                            , 'id'         => $source->getId( )
+                        )
+                    );
              }
          } else if ($request->isGet( )) {
             $persons = $this->personService->retrieveWithCredentialsLike($this->params( )->fromQuery("trait"));
@@ -40,18 +53,34 @@ extends AbstractActionController
          return array('persons' => $persons, 'form' => $form, 'source' => $source);
     }
 
-    public function retrieveAction ()
-    {
-        return new ViewModel();
-    }
-
-    public function updateAction ()
-    {
-        return new ViewModel();
-    }
-
     public function destroyAction ()
     {
-        return new ViewModel();
+        $form = new ContactDestroyForm ("Destroy contact.");
+        $source = $this->personService->retrieve($this->params( )->fromRoute("id"));
+        $request = $this->getRequest();
+        if ($request->isPost()) 
+        {
+            // TODO Implement input filter for form.
+            //$form->setInputFilter(new ContactCreateInputFilter ( ));
+            $form->setData($request->getPost());
+            if ($form->isValid()) 
+            {
+                $contact = $this->contactService->destroy($form->getData( ));
+            } else {
+                $this->getResponse( )->setStatusCode(400);
+            }
+        }
+        return $this
+            ->redirect( )
+            ->toRoute
+            (
+                  'application'
+                , array
+                (
+                      'controller' => 'person'
+                    , 'action'     => 'retrieve'
+                    , 'id'         => $source->getId( )
+                )
+            );
     }
 }

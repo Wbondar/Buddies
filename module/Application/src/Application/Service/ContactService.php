@@ -12,6 +12,10 @@ use Application\Entity\PhoneNumber;
 
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 
+/**
+ * Create, retreieve, update and destroy logic for contacts.
+ */
+
 class ContactService
 {
 	private $objectManager;

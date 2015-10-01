@@ -10,6 +10,10 @@ use Application\Entity\Contact;
 use Application\Entity\Person;
 use Application\Entity\PhoneNumber;
 
+/**
+ * Create, retreieve, update and destroy logic for credentials.
+ */
+
 class CredentialsService
 {
 	private $objectManager;

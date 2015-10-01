@@ -9,11 +9,16 @@ implements FactoryInterface
 {
 	public function createService(ServiceLocatorInterface $serviceLocator)
 	{
+		$accountService = $serviceLocator->getServiceLocator()->get('Application\Service\Account');
+		if ($accountService == null)
+		{
+			throw new \Exception ("Failed to locate account service.");
+		}
 		$personService = $serviceLocator->getServiceLocator()->get('Application\Service\Person');
 		if ($personService == null)
 		{
-			throw new \Exception ("Failed to locate service.");
+			throw new \Exception ("Failed to locate person service.");
 		}
-		return new PersonController($personService);
+		return new PersonController($accountService, $personService);
 	}
 }
