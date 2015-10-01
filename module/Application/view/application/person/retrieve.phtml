@@ -1,68 +1,75 @@
 <?php echo $this->partial('application/person/findperson', array ('persons' => $persons)); ?>
+<?php
+$visitor = null;
+if ($this->identity( ))
+{
+  $visitor = $this->identity( )->getPerson( );  
+}
+?>
 <?php if ($person != null): ?>
-<article id='<?php echo $person->getId( ); ?>'>
-  <h1>Person.</h1>
-  <?php foreach ($person->getCredentials( ) as $credentials): ?>
-    <section>
-      <h2>Credentials.</h2>
+  <article id='<?php echo $person->getId( ); ?>'>
+    <h1>Person.</h1>
+    <?php foreach ($person->getCredentials( ) as $credentials): ?>
       <section>
-        <h3>First name.</h3>
-        <p><?php echo $credentials->getNameFirst( ); ?></p>
+        <h2>Credentials.</h2>
+        <section>
+          <h3>First name.</h3>
+          <p><?php echo $credentials->getNameFirst( ); ?></p>
+        </section>
+        <section>
+          <h3>Last name.</h3>
+          <p><?php echo $credentials->getNameLast( ); ?></p>
+        </section>
       </section>
-      <section>
-        <h3>Last name.</h3>
-        <p><?php echo $credentials->getNameLast( ); ?></p>
-      </section>
-    </section>
-  <?php endforeach ?>
-  <section>
-    <h2>E-mail addresses.</h2>
-    <?php if ($person->getEmailAddresses( )->isEmpty( )): ?>
-      <p>No e-mail addresses found.</p>
-    <?php else: ?>
-      <ul>
-        <?php foreach ($person->getEmailAddresses( ) as $emailAddress): ?>
-          <li><p><?php echo $emailAddress->getValue( ); ?></p><?php if ($this->identity( )->getPerson( ) == $person): ?><section><h3>Delete e-mail address.</h3><form method='POST' action='<?php echo $this->url('application', array('controller' => 'emailaddress', 'action' => 'destroy')); ?>'><input type='hidden' name='id' value='<?php echo $emailAddress->getId( ); ?>' required='required' /><input type='submit' /></form></section><?php endif ?></li>
-        <?php endforeach ?>
-      </ul>
-    <?php endif ?>
-  </section>
-  <section>
-    <h2>Phone numbers.</h2>
-    <?php if ($person->getPhoneNumbers( )->isEmpty( )): ?>
-      <p>No phone numbers found.</p>
-    <?php else: ?>
-      <ul>
-        <?php foreach ($person->getPhoneNumbers( ) as $phoneNumber): ?>
-          <li><p><?php echo $phoneNumber->getValue( ); ?></p><?php if ($this->identity( )->getPerson( ) == $person): ?><section><h3>Delete phone number.</h3><form method='POST' action='<?php echo $this->url('application', array('controller' => 'phonenumber', 'action' => 'destroy')); ?>'><input type='hidden' name='id' value='<?php echo $phoneNumber->getId( ); ?>' required='required' /><input type='submit' /></form></section><?php endif ?></li>
-        <?php endforeach ?>
-      </ul>
-    <?php endif ?>
-  </section>
-  <section>
-    <h2>Contacts.</h2>
-    <?php foreach ($person->getContacts( ) as $contact): ?>
-      <article id='<?php echo $contact->getId( ); ?>' />
-        <h3><a href='<?php echo $this->url("application", array("controller" => "person", "action" => "retrieve", "id" => $contact->getTarget( )->getId( ))); ?>'>Contact #<?php echo $contact->getId( ); ?></a></h3>
-        <?php foreach ($contact->getTarget( )->getCredentials( ) as $targetCredentials): ?>
-          <p><?php echo $targetCredentials->getNameFirst( ) . ' ' . $targetCredentials->getNameLast( ); ?></p>
-          <?php if ($this->identity( ) != null): ?>
-            <?php if ($this->identity( )->getPerson( )->getId( ) == $person->getId( )): ?>
-              <section>
-                <h4>Delete contact.</h4>
-                <form action='<?php echo $this->url('application', array('controller' => 'contact', 'action' => 'destroy', 'id' => $contact->getId( ))); ?>' method='POST'>
-                  <input type='hidden' name='id' value='<?php echo $contact->getId( ); ?>' />
-                  <input type='submit' />
-                </form>
-              </section>
-            <?php endif ?>
-          <?php endif ?>
-        <?php endforeach ?>
-      </article>
     <?php endforeach ?>
-    <?php if ($person->getContacts( )->isEmpty( )): ?>
-      <p>No contacts found.</p>
-    <?php endif ?>
-  </section>
-</article>
+    <section>
+      <h2>E-mail addresses.</h2>
+      <?php if ($person->getEmailAddresses( )->isEmpty( )): ?>
+        <p>No e-mail addresses found.</p>
+      <?php else: ?>
+        <ul>
+          <?php foreach ($person->getEmailAddresses( ) as $emailAddress): ?>
+            <li><p><?php echo $emailAddress->getValue( ); ?></p><?php if ($visitor == $person): ?><section><h3>Delete e-mail address.</h3><form method='POST' action='<?php echo $this->url('application', array('controller' => 'emailaddress', 'action' => 'destroy')); ?>'><input type='hidden' name='id' value='<?php echo $emailAddress->getId( ); ?>' required='required' /><input type='submit' /></form></section><?php endif ?></li>
+          <?php endforeach ?>
+        </ul>
+      <?php endif ?>
+    </section>
+    <section>
+      <h2>Phone numbers.</h2>
+      <?php if ($person->getPhoneNumbers( )->isEmpty( )): ?>
+        <p>No phone numbers found.</p>
+      <?php else: ?>
+        <ul>
+          <?php foreach ($person->getPhoneNumbers( ) as $phoneNumber): ?>
+            <li><p><?php echo $phoneNumber->getValue( ); ?></p><?php if ($visitor == $person): ?><section><h3>Delete phone number.</h3><form method='POST' action='<?php echo $this->url('application', array('controller' => 'phonenumber', 'action' => 'destroy')); ?>'><input type='hidden' name='id' value='<?php echo $phoneNumber->getId( ); ?>' required='required' /><input type='submit' /></form></section><?php endif ?></li>
+          <?php endforeach ?>
+        </ul>
+      <?php endif ?>
+    </section>
+    <section>
+      <h2>Contacts.</h2>
+      <?php foreach ($person->getContacts( ) as $contact): ?>
+        <article id='<?php echo $contact->getId( ); ?>' />
+          <h3><a href='<?php echo $this->url("application", array("controller" => "person", "action" => "retrieve", "id" => $contact->getTarget( )->getId( ))); ?>'>Contact #<?php echo $contact->getId( ); ?></a></h3>
+          <?php foreach ($contact->getTarget( )->getCredentials( ) as $targetCredentials): ?>
+            <p><?php echo $targetCredentials->getNameFirst( ) . ' ' . $targetCredentials->getNameLast( ); ?></p>
+            <?php if ($this->identity( ) != null): ?>
+              <?php if ($visitor->getId( ) == $person->getId( )): ?>
+                <section>
+                  <h4>Delete contact.</h4>
+                  <form action='<?php echo $this->url('application', array('controller' => 'contact', 'action' => 'destroy', 'id' => $contact->getId( ))); ?>' method='POST'>
+                    <input type='hidden' name='id' value='<?php echo $contact->getId( ); ?>' />
+                    <input type='submit' />
+                  </form>
+                </section>
+              <?php endif ?>
+            <?php endif ?>
+          <?php endforeach ?>
+        </article>
+      <?php endforeach ?>
+      <?php if ($person->getContacts( )->isEmpty( )): ?>
+        <p>No contacts found.</p>
+      <?php endif ?>
+    </section>
+  </article>
 <?php endif ?>
