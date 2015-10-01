@@ -5,6 +5,7 @@ namespace Application\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 
+use Application\Entity\Account;
 use Application\Entity\Credentials;
 use Application\Entity\Contact;
 use Application\Entity\Person;
@@ -46,9 +47,23 @@ class PhoneNumberService
 	{
 		return $this->phoneNumberRepo->findBy($traits);
 	}
+	
+	/**
+	 * Takes $account that is user attempting to delete phone number to the database
+	 * and id of phone number to delete.
+	 * If the user appears to be the owner of the phone number, delete the phone number.
+	 * Do nothing overwise.
+	 * @param \Application\Entity\Account $account
+	 * @param string $phoneNumberId
+	 */
 
-	public function destroy (PhoneNumber $phoneNumber)
+	public function destroy (\Application\Entity\Account $account, $phoneNumberId)
 	{
-		return $this->phoneNumberRepo->destroy($phoneNumber);
+		$phoneNumber = $this->retrieve($phoneNumberId);
+		if ($account->getPerson( )->getPhoneNumbers( )->contains($phoneNumber))
+		{
+			$this->objectManager->remove($phoneNumber);
+			$this->objectManager->flush( );
+		}
 	}
 }

@@ -57,6 +57,11 @@ extends AbstractActionController
 
     public function destroyAction ()
     {
-        return new ViewModel();
+    	if ($account = $this->identity( ))
+    	{
+    		$this->phoneNumberService->destroy($account, $this->params( )->fromPost('id'));
+    		return $this->redirectToPersonalProfile( );
+    	}
+    	return $this->redirectToAuthentication( );
     }
 }

@@ -32,7 +32,7 @@
     <?php else: ?>
       <ul>
         <?php foreach ($person->getPhoneNumbers( ) as $phoneNumber): ?>
-          <li><?php echo $phoneNumber->getValue( ); ?></li>
+          <li><p><?php echo $phoneNumber->getValue( ); ?></p><?php if ($this->identity( )->getPerson( ) == $person): ?><section><h3>Delete phone number.</h3><form method='POST' action='<?php echo $this->url('application', array('controller' => 'phonenumber', 'action' => 'destroy')); ?>'><input type='hidden' name='id' value='<?php echo $phoneNumber->getId( ); ?>' required='required' /><input type='submit' /></form></section><?php endif ?></li>
         <?php endforeach ?>
       </ul>
     <?php endif ?>
