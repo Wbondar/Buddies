@@ -43,6 +43,13 @@ class CredentialsService
 		return $this->credentialsRepo->find($id);
 	}
 
+	public function update (Credentials $credentials)
+	{
+		$this->objectManager->persist($credentials);
+		$this->objectManager->flush( );
+		return $credentials;
+	}
+
 	public function destroy (Credentials $credentials)
 	{
 		return $this->credentialsRepo->destroy($credentials);

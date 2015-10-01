@@ -6,7 +6,10 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Application\Entity\Person;
+use Application\Form\CredentialsUpdateForm;
 use Application\Form\PersonCreateForm;
+use Application\Form\EMailAddressCreateForm;
+use Application\Form\PhoneNumberCreateForm;
 
 class PersonController 
 extends AbstractActionController
@@ -84,7 +87,14 @@ extends AbstractActionController
         {
             $account = $this->accountService->retrieve( );
             $myself = $account->getPerson( );
-            return array ('account' => $account, 'myself' => $myself);
+            return array 
+            (
+                'account'                => $account
+              , 'myself'                 => $myself
+              , 'emailAddressCreateForm' => new EMailAddressCreateForm ( )
+              , 'phoneNumberCreateForm'  => new PhoneNumberCreateForm ( )
+              , 'credentialsUpdateForm'  => new CredentialsUpdateForm ( )
+            );
         }
         $this->getResponse( )->setStatusCode(400);
         return $this

@@ -14,6 +14,30 @@
     </section>
   <?php endforeach ?>
   <section>
+    <h2>E-mail addresses.</h2>
+    <?php if ($person->getEmailAddresses( )->isEmpty( )): ?>
+      <p>No e-mail addresses found.</p>
+    <?php else: ?>
+      <ul>
+        <?php foreach ($person->getEmailAddresses( ) as $emailAddress): ?>
+          <li><?php echo $emailAddress->getValue( ); ?></li>
+        <?php endforeach ?>
+      </ul>
+    <?php endif ?>
+  </section>
+  <section>
+    <h2>Phone numbers.</h2>
+    <?php if ($person->getPhoneNumbers( )->isEmpty( )): ?>
+      <p>No phone numbers found.</p>
+    <?php else: ?>
+      <ul>
+        <?php foreach ($person->getPhoneNumbers( ) as $phoneNumber): ?>
+          <li><?php echo $phoneNumber->getValue( ); ?></li>
+        <?php endforeach ?>
+      </ul>
+    <?php endif ?>
+  </section>
+  <section>
     <h2>Contacts.</h2>
     <?php foreach ($person->getContacts( ) as $contact): ?>
       <article id='<?php echo $contact->getId( ); ?>' />
@@ -29,13 +53,8 @@
         <?php endforeach ?>
       </article>
     <?php endforeach ?>
-    <?php if (count($person->getContacts( )) < 1): ?>
-      No contacts found.
+    <?php if ($person->getContacts( )->isEmpty( )): ?>
+      <p>No contacts found.</p>
     <?php endif ?>
-    <!-- TODO Implement session hangling instead of storing id of source in route. -->
-    <form method='GET' action='<?php echo $this->url('contact_create', array('id' => $person->getId( ))); ?>'>
-      <input type='text' name='trait' placeholder='Name of a person to contact with.' required/>
-      <input type='submit'>
-    </form>
   </section>
 </article>
