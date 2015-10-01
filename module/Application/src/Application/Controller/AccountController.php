@@ -9,7 +9,7 @@ use Application\Form\AccountCreateForm;
 use Application\Form\SessionInvalidateForm;
 
 class AccountController 
-extends AbstractActionController
+extends ApplicationController
 {
 	private $accountService;
 
@@ -17,38 +17,6 @@ extends AbstractActionController
 	{
 		$this->accountService = $accountService;
 	}
-
-    private function redirectToPersonalProfile( )
-    {
-        $this->getResponse( )->setStatusCode(400);
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'person'
-                    , 'action'     => 'myself'
-                )
-            );
-    }
-
-    private function redirectToAuthentication( )
-    {
-        $this->getResponse( )->setStatusCode(400);
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'account'
-                    , 'action'     => 'authenticate'
-                )
-            );
-    }
 
     public function createAction ( )
     {

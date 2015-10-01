@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class PhoneNumberController 
-extends AbstractActionController
+extends ApplicationController
 {
 	private $phoneNumberService;
 
@@ -14,36 +14,6 @@ extends AbstractActionController
 	{
 		$this->phoneNumberService = $phoneNumberService;
 	}
-
-    private function redirectToPersonalProfile( )
-    {
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'person'
-                    , 'action'     => 'myself'
-                )
-            );
-    }
-
-    private function redirectToAuthentication( )
-    {
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'account'
-                    , 'action'     => 'authenticate'
-                )
-            );
-    }
 
     public function createAction ()
     {

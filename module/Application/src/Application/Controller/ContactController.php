@@ -8,7 +8,7 @@ use Zend\View\Model\ViewModel;
 use Application\Form\ContactCreateForm;
 
 class ContactController 
-extends AbstractActionController
+extends ApplicationController
 {
 	private $contactService;
     private $personService;
@@ -34,18 +34,7 @@ extends AbstractActionController
              if ($form->isValid()) 
              {
                 $contact = $this->contactService->create($form->getData( ));
-                return $this
-                    ->redirect( )
-                    ->toRoute
-                    (
-                          'application'
-                        , array
-                        (
-                              'controller' => 'person'
-                            , 'action'     => 'retrieve'
-                            , 'id'         => $source->getId( )
-                        )
-                    );
+                return $this->redirectToPersonalProfile( );
              }
          } else if ($request->isGet( )) {
             $persons = $this->personService->retrieveWithCredentialsLike($this->params( )->fromQuery("trait"));
@@ -70,17 +59,6 @@ extends AbstractActionController
                 $this->getResponse( )->setStatusCode(400);
             }
         }
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'person'
-                    , 'action'     => 'retrieve'
-                    , 'id'         => $source->getId( )
-                )
-            );
+        return $this->redirectToPersonalProfile( );
     }
 }

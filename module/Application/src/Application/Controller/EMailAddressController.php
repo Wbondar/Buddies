@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class EMailAddressController 
-extends AbstractActionController
+extends ApplicationController
 {
 	private $emailAddressService;
 
@@ -14,36 +14,6 @@ extends AbstractActionController
 	{
 		$this->emailAddressService = $emailAddressService;
 	}
-
-    private function redirectToPersonalProfile( )
-    {
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'person'
-                    , 'action'     => 'myself'
-                )
-            );
-    }
-
-    private function redirectToAuthentication( )
-    {
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'account'
-                    , 'action'     => 'authenticate'
-                )
-            );
-    }
 
     public function createAction ()
     {
