@@ -18,7 +18,7 @@ extends EntityRepository
 			->createQueryBuilder('p')
 			->addSelect('c')
 			->leftJoin('p.credentials', 'c')
-			->where('LOWER(CONCAT(c.nameFirst, \' \', c.nameLast)) LIKE LOWER(:trait)')
+			->where('LOWER(CONCAT(c.nameFirst, \' \', COALESCE(c.nameLast, \'\'))) LIKE LOWER(:trait)')
 			->setParameter('trait', '%'.$trait.'%')
 			->getQuery( )
 			->getResult( )

@@ -14,24 +14,7 @@ return array(
     (
         'routes' => array
         (
-            'contact_create' => array 
-            (
-               'type'    => 'segment',
-               'options' => array
-               (
-                   'route'    => '/person/:id/contact/create',
-                   'constraints' => array
-                   (
-                      'id'         => '[1-9]\d*'
-                   )
-                   , 'defaults' => array
-                   (
-                         'controller' => 'Application\Controller\Contact'
-                       , 'action'     => 'create'
-                   )
-               )
-            )
-            , 'application' => array
+            'application' => array
             (
                  'type'    => 'segment',
                  'options' => array
@@ -124,6 +107,7 @@ return array(
             'application/emailaddress/destroy'  => __DIR__ . '/../view/application/emailaddress/destroy.phtml',
             'application/person/create'        => __DIR__ . '/../view/application/person/create.phtml',
             'application/person/retrieve'      => __DIR__ . '/../view/application/person/retrieve.phtml',
+            'application/person/findperson'      => __DIR__ . '/../view/application/person/findperson.phtml',
             'application/person/myself'        => __DIR__ . '/../view/application/person/myself.phtml',
             'application/person/update'        => __DIR__ . '/../view/application/person/update.phtml',
             'application/person/destroy'       => __DIR__ . '/../view/application/person/destroy.phtml',

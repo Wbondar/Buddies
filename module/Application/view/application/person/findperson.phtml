@@ -1,0 +1,11 @@
+<?php if ($persons != null): ?>
+	<?php foreach ($persons as $person): ?>
+		<article id='<?php echo $person->getId( ); ?>'>
+			<h3>Person.</h3>
+			<?php foreach ($person->getCredentials( ) as $credentials): ?>
+				<p><?php echo $credentials->getNameFirst( ) . ' ' . $credentials->getNameLast( ); ?></p>
+			<?php endforeach ?>
+			<a href='<?php echo $this->url('application', array('controller' => 'contact', 'action' => 'create', 'id' => $person->getId( )))?>'>Establish contact.</a>
+		</article>
+	<?php endforeach ?>
+<?php endif ?>

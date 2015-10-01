@@ -15,45 +15,9 @@ extends Form
 			array
 			(
 			    'type' => 'hidden',
-			    'name' => 'source_id'
+			    'name' => 'id'
 			)
 		);
-		$this->add
-		(
-			array
-			(
-			    'type' => 'hidden',
-			    'name' => 'target_id'
-			)
-		);
-		/*$this->add
-		(
-			array
-			(
-			    'type' => 'DoctrineModule\Form\Element\ObjectHidden',
-			    'name' => 'source',
-			    'options' => array
-			    (
-			        'object_manager' => $objectManager,
-			        'target_class'   => 'Application\Entity\Person',
-			        'property'       => 'id',
-			    )
-			)
-		);
-		$this->add
-		(
-			array
-			(
-			    'type' => 'DoctrineModule\Form\Element\ObjectHidden',
-			    'name' => 'target',
-			    'options' => array
-			    (
-			        'object_manager' => $objectManager,
-			        'target_class'   => 'Application\Entity\Person',
-			        'property'       => 'id',
-			    )
-			)
-		);*/
 		$this->add
 		(
 			array 

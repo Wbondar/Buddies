@@ -1,32 +1,24 @@
 <section>
-	<h1>Search for person.</h1>
-	<?php foreach ($persons as $person): ?>
-		<article>
-			<h2>Person.</h2>
-			<?php foreach ($person->getCredentials( ) as $credentials): ?>
-				<section>
-					<h3>Credentials.</h3>
-					<section>
-						<h4>First name.</h4>
-						<p><?php echo $credentials->getNameFirst( ); ?></p>
-					</section>
-					<section>
-						<h4>Last name.</h4>
-						<p><?php echo $credentials->getNameLast( ); ?></p>
-					</section>
-				</section>
-			<?php endforeach ?>
-			<section>
-				<h3>Create contact.</h3>
-				<?php
-					$form->setData(array('source_id' => $source->getId( ), 'target_id' => $person->getId( )));
-					 echo $this->form()->openTag($form);
-					 echo $this->formRow($form->get('source_id'));
-					 echo $this->formRow($form->get('target_id'));
-					 echo $this->formSubmit($form->get('submit'));
-					 echo $this->form()->closeTag();
-				?>
-			</section>
-		</article>
+	<h3>Create contact.</h3>
+	<?php foreach ($target->getCredentials( ) as $credentials): ?>
+		<p><?php echo $credentials->getNameFirst( ); ?> <?php echo $credentials->getNameLast( ); ?></p>
 	<?php endforeach ?>
+	<?php
+		if ($this->identity( ) != null)
+		{
+			if ($target->getId( ) != $this->identity( )->getPerson( )->getId( ))
+			{
+				$form->setData(array('id' => $target->getId( )));
+		        $form->prepare( );
+				echo $this->form()->openTag($form);
+				echo $this->formRow($form->get('id'));
+				echo $this->formSubmit($form->get('submit'));
+				echo $this->form()->closeTag();
+			} else {
+				echo '<p>You can not contact with yourself.</p>';
+			}
+		} else {
+			echo '<p>You have to authenticate to the system first.</p>';
+		}
+	?>
 </section>

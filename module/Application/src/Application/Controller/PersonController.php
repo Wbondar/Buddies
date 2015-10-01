@@ -17,29 +17,12 @@ extends AbstractActionController
     private $accountService;
 	private $personService;
 
-	public function __construct ($accountService, $personService)
-	{
+  	public function __construct ($accountService, $personService)
+  	{
         $this->accountService = $accountService;
-		$this->personService = $personService;
-	}
+  		$this->personService = $personService;
+  	}
 
-    public function createAction ()
-    {
-         $form = new PersonCreateForm( );
-
-         $request = $this->getRequest();
-         if ($request->isPost()) {
-            // TODO Implement input filter for form.
-             //$form->setInputFilter(new PersonCreateInputFilter ( ));
-             $form->setData($request->getPost());
-
-             if ($form->isValid()) {
-                $person = $this->personService->create($form->getData( ));
-                return $this->redirect()->toRoute('application', array('controller' => 'person', 'action' => 'retrieve', 'id' => $person->getId( )));
-             }
-         }
-         return array('form' => $form);
-    }
 
     public function retrieveAction ( )
     {
@@ -47,38 +30,22 @@ extends AbstractActionController
         if ($request->isGet( ))
         {
             $id = $this->params( )->fromRoute("id");
-            $person = $this->personService->retrieve($id);
-            if ($person != null)
+            if ($id)
             {
-                return array('person' => $person);   
+                $person = $this->personService->retrieve($id);
+                if ($person != null)
+                {
+                    return array('person' => $person);   
+                }
+                $this->getResponse( )->setStatusCode(404);
+                return array ('message' => 'Could not find person.');
+            } else {
+                $persons = $this->personService->retrieveWithCredentialsLike($this->params( )->fromQuery("trait"));
+                return array ('persons' => $persons);
             }
-            $this->getResponse( )->setStatusCode(404);
-            return array ('message' => 'Could not find person.');
         }
         $this->getResponse( )->setStatusCode(405);
         return array('message' => 'Method not allowed.');
-    }
-
-    /**
-     * Since forms for updating person are located at the same page as data itself,
-     * redirection is used.
-     */
-
-    public function updateAction ()
-    {
-        $this->getResponse( )->setStatusCode(303);
-        return $this
-            ->redirect( )
-            ->toRoute
-            (
-                  'application'
-                , array
-                (
-                      'controller' => 'person'
-                    , 'action'     => 'retrieve'
-                    , 'id'         => $this->params( )->fromRoute('id')
-                )
-            );
     }
 
     public function myselfAction ( )

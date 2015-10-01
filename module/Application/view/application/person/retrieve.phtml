@@ -1,3 +1,5 @@
+<?php echo $this->partial('application/person/findperson', array ('persons' => $persons)); ?>
+<?php if ($person != null): ?>
 <article id='<?php echo $person->getId( ); ?>'>
   <h1>Person.</h1>
   <?php foreach ($person->getCredentials( ) as $credentials): ?>
@@ -44,12 +46,17 @@
         <h3><a href='<?php echo $this->url("application", array("controller" => "person", "action" => "retrieve", "id" => $contact->getTarget( )->getId( ))); ?>'>Contact #<?php echo $contact->getId( ); ?></a></h3>
         <?php foreach ($contact->getTarget( )->getCredentials( ) as $targetCredentials): ?>
           <p><?php echo $targetCredentials->getNameFirst( ) . ' ' . $targetCredentials->getNameLast( ); ?></p>
-          <section>
-            <h4>Delete contact.</h4>
-            <form action='<?php echo $this->url('application', array('controller' => 'contact', 'action' => 'destroy', 'id' => $contact->getId( ))); ?>' method='POST'>
-              <input type='submit' />
-            </form>
-          </section>
+          <?php if ($this->identity( ) != null): ?>
+            <?php if ($this->identity( )->getPerson( )->getId( ) == $person->getId( )): ?>
+              <section>
+                <h4>Delete contact.</h4>
+                <form action='<?php echo $this->url('application', array('controller' => 'contact', 'action' => 'destroy', 'id' => $contact->getId( ))); ?>' method='POST'>
+                  <input type='hidden' name='id' value='<?php echo $contact->getId( ); ?>' />
+                  <input type='submit' />
+                </form>
+              </section>
+            <?php endif ?>
+          <?php endif ?>
         <?php endforeach ?>
       </article>
     <?php endforeach ?>
@@ -58,3 +65,4 @@
     <?php endif ?>
   </section>
 </article>
+<?php endif ?>
