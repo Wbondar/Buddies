@@ -14,15 +14,6 @@ extends Form
 		(
 			array 
 			(
-				  'name' => 'id'
-				, 'type' => 'hidden'
-			)
-		)
-		;
-		$this->add
-		(
-			array 
-			(
 				  'name' => 'nameFirst'
 				, 'attributes' => array
 				(
