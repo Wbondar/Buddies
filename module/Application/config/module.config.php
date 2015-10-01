@@ -93,7 +93,7 @@ return array(
             , 'contact'     => 'Application\Controller\Contact'
             , 'credentials' => 'Application\Controller\Credentials'
             , 'person'      => 'Application\Controller\Person'
-            , 'phonenumber' => 'Application\Controller\PhhoneNumber'
+            , 'phonenumber' => 'Application\Controller\PhoneNumber'
         )
     )
     , 'view_manager' => array

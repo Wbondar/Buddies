@@ -12,10 +12,8 @@
 					'action'
 					, $this->url('application', array('controller' => 'phonenumber', 'action' => 'create'))
 				);
-			$phoneNumberCreateForm->setData(array('owner_id' => $myself->getId( )));
 			$phoneNumberCreateForm->prepare();
 			echo $this->form()->openTag($phoneNumberCreateForm);
-			echo $this->formRow($phoneNumberCreateForm->get('owner_id'));
 			echo $this->formRow($phoneNumberCreateForm->get('value'));
 			echo $this->formSubmit($phoneNumberCreateForm->get('submit'));
 			echo $this->form()->closeTag();

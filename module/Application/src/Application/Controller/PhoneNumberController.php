@@ -15,19 +15,44 @@ extends AbstractActionController
 		$this->phoneNumberService = $phoneNumberService;
 	}
 
+    private function redirectToPersonalProfile( )
+    {
+        return $this
+            ->redirect( )
+            ->toRoute
+            (
+                  'application'
+                , array
+                (
+                      'controller' => 'person'
+                    , 'action'     => 'myself'
+                )
+            );
+    }
+
+    private function redirectToAuthentication( )
+    {
+        return $this
+            ->redirect( )
+            ->toRoute
+            (
+                  'application'
+                , array
+                (
+                      'controller' => 'account'
+                    , 'action'     => 'authenticate'
+                )
+            );
+    }
+
     public function createAction ()
     {
-        return new ViewModel();
-    }
-
-    public function retrieveAction ()
-    {
-        return new ViewModel();
-    }
-
-    public function updateAction ()
-    {
-        return new ViewModel();
+    	if ($account = $this->identity( ))
+    	{
+    		$this->phoneNumberService->create($account->getPerson( ), $this->params( )->fromPost('value'));
+    		return $this->redirectToPersonalProfile( );
+    	}
+    	return $this->redirectToAuthentication( );
     }
 
     public function destroyAction ()
