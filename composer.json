@@ -10,6 +10,7 @@
     "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.5",
+        "ext-gd": "*",
         "zendframework/zendframework": "~2.5",
         "doctrine/orm" : "2.4.*",
         "doctrine/data-fixtures" : "1.1.1",
