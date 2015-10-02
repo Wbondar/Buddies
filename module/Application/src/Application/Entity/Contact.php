@@ -13,7 +13,12 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Contact entity.
- * Each person may have zero or more contacts.
+ * Handles relationship between two person.
+ * Connection between two persons may be established only once.
+ * Entity does not guarantee that relationship between persons is bidirectional.
+ * That logic is handled by a \Application\Service\PersonService class.
+ * Contact is not mandatory bidirectional in order to save room for different types of contacts.
+ * For example, relationship parent-child is not bidirectional.
  * @Entity
  * @Table(uniqueConstraints={@UniqueConstraint(name="uk_contact_source_id_target_id", columns={"source_id", "target_id"})})
  */

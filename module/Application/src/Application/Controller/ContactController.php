@@ -6,6 +6,16 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Application\Form\ContactCreateForm;
+use Application\Service\ContactService;
+use Application\Service\PersonService;
+
+/**
+ * 
+ * Controller responsible for creation and destruction of contacts.
+ * 
+ * @author wbondarenko@programmer.net
+ *
+ */
 
 class ContactController 
 extends ApplicationController
@@ -13,11 +23,18 @@ extends ApplicationController
 	private $contactService;
     private $personService;
 
-	public function __construct ($contactService, $personService)
+	public function __construct (ContactService $contactService, PersonService $personService)
 	{
 		$this->contactService = $contactService;
         $this->personService = $personService;
 	}
+	
+	/**
+	 * Creates new contact on POST.
+	 * Also partly responsible for ensuring that creation is possible.
+	 * Renders appropriate HTML page on GET.
+	 * Redirects to the authentication page is user is not logged in.
+	 */
 
     public function createAction ()
     {
@@ -52,6 +69,12 @@ extends ApplicationController
             }
          }
     }
+    
+    /**
+     * Destroys a contact on POST.
+     * Renders appropriate HTML page on GET.
+     * Redirects to authentication page if user is not logged in.
+     */
 
     public function destroyAction ()
     {

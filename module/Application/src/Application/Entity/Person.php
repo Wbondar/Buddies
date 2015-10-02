@@ -13,6 +13,13 @@ use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * Person entity.
+ * Each person may have zero or more contacts.
+ * Each person must have at least one instance of credentials.
+ * That is not really checked by the application at the moment.
+ * It is just not exposed to the end user that such an entity exists in the system
+ * and there is no legal way for an end-user to create or destroy instance of this entity.
+ * Each person may have zero or more e-mail addresses.
+ * Each person may have zero or more phone numbers.
  * @Entity(repositoryClass="PersonRepository")
  */
 

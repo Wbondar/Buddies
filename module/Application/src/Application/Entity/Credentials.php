@@ -15,9 +15,13 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Credentials entity.
- * Each person might have zero or more credentials.
+ * Each credentials instance corresponds to one and only one person.
+ * Stores information about first and last name of a person.
  * Separated from person entity in order to 
  * save room for globalization.
+ * Name is made to be unique across the system for simplisity.
+ * That woun't be the case in real application.
+ * Last name is not mandatory in case user would like to remain anonymous.
  * @Entity
  * @Table(uniqueConstraints={@UniqueConstraint(name="uk_credentials_nameFirst_nameLast", columns={"nameFirst", "nameLast"}),@UniqueConstraint(name="uk_credentials_owner_id_id", columns={"owner_id", "id"})})
  */
