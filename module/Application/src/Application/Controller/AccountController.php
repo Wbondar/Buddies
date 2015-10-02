@@ -5,18 +5,34 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Application\Service\AccountService;
 use Application\Form\AccountCreateForm;
 use Application\Form\SessionInvalidateForm;
+
+/**
+ * 
+ * Account controller handles sessions and registration.
+ * 
+ * @author wbondarenko@programmer.net
+ *
+ */
 
 class AccountController 
 extends ApplicationController
 {
 	private $accountService;
 
-	public function __construct ($accountService)
+	public function __construct (AccountService $accountService)
 	{
 		$this->accountService = $accountService;
 	}
+	
+	/**
+	 * Handles creation of an account that is registering (signing up) to the system on a POST request.
+	 * Renders appropriate HTML form on a GET request.
+	 * Redirects to personal profile page if user is logged in.
+	 * @throws \Exception
+	 */
 
     public function createAction ( )
     {
@@ -53,6 +69,14 @@ extends ApplicationController
         }
         return array('form' => $form);
     }
+    
+    /**
+     * Authenticates a user to the system that is creates session on POST request.
+     * Renders appropriate HTML form on GET request.
+     * Redirects to the personal profile page is user is already logged in.
+     * @throws \Exception
+     * @return multitype:\Application\Form\AccountCreateForm
+     */
 
     public function authenticateAction ( )
     {
@@ -82,6 +106,13 @@ extends ApplicationController
          }
          return array('form' => $form);
     }
+    
+    /**
+     * Destroys session that is logs out user from the system on POST request.
+     * Renders appropriate HTML form on GET request.
+     * Redirects the user to the authentication page if user is not logged in.
+     * @return multitype:\Application\Form\SessionInvalidateForm
+     */
 
     public function exitAction ( )
     {

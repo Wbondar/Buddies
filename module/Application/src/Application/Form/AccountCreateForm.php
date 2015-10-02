@@ -5,7 +5,7 @@ namespace Application\Form;
 use Zend\Form\Form;
 
 class AccountCreateForm
-extends Form
+extends ApplicationCAPTCHAForm
 {
 	public function __construct ($name = null)
 	{
@@ -15,6 +15,7 @@ extends Form
 			array 
 			(
 				  'name' => 'username'
+				, 'type' => 'Zend\Form\Element\Email'
 				, 'attributes' => array
 				(
 			         'type' => 'email'
@@ -38,6 +39,8 @@ extends Form
 			    )
 			)
 		)
+		;
+		$this->addCAPTCHA( )
 		;
 		$this->add
 		(

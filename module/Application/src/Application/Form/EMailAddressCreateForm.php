@@ -7,7 +7,7 @@ use Zend\Form\Form;
 class EMailAddressCreateForm
 extends Form
 {
-	public function __construct ($name)
+	public function __construct ($name = null)
 	{
 		parent::__construct($name);
 		$this->add
@@ -15,6 +15,7 @@ extends Form
 			array 
 			(
 				  'name' => 'value'
+				, 'type' => 'Zend\Form\Element\Email'
 				, 'attributes' => array
 				(
 			          'type' => 'email'

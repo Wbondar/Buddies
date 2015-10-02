@@ -47,6 +47,15 @@ class AccountService
     {
     	return static::$BCRYPT->verify($plainText, $storedHash);
     }
+    
+    /**
+     * Creates new account if username is not taken yet.
+     * Tries to authenticate the user
+     * if username is already taken.
+     * @param string $username login of the user
+     * @param string $password plain text password
+     * @throws \Exception
+     */
 
     public function create ($username, $password)
     {
@@ -87,6 +96,15 @@ class AccountService
     		throw new \Exception ("Failed to create an account due to unknown internal server error.", 500, $e);
     	}
     }
+    
+    /**
+     * Retrieves instance of an account by username and password.
+     * If usrename is not registered withing the system,
+     * attempts to create an account.
+     * @param string $username login of the user
+     * @param string $password plain text password
+     * @throws \Exception
+     */
 
 	public function authenticate ($username, $password)
 	{

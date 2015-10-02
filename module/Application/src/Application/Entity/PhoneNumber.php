@@ -8,11 +8,14 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Phone number entity.
- * Each person may own zero or more phone numbers. 
+ * Each phone number must correspond to one and only one person.
  * @Entity
+ * @Table(uniqueConstraints={@UniqueConstraint(columns={"owner_id", "id"})})
  */
 
 class PhoneNumber

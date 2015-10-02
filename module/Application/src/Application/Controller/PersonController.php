@@ -6,10 +6,19 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Application\Entity\Person;
+use Application\Service\AccountService;
+use Application\Service\PersonService;
 use Application\Form\CredentialsUpdateForm;
 use Application\Form\PersonCreateForm;
 use Application\Form\EMailAddressCreateForm;
 use Application\Form\PhoneNumberCreateForm;
+
+/**
+ * Controller, responsible for retrieving data about persons from the system.
+ * 
+ * @author wbondarenko@programmer.net
+ *
+ */
 
 class PersonController 
 extends ApplicationController
@@ -17,13 +26,17 @@ extends ApplicationController
     private $accountService;
 	private $personService;
 
-  	public function __construct ($accountService, $personService)
+  	public function __construct (AccountService $accountService, PersonService $personService)
   	{
         $this->accountService = $accountService;
   		$this->personService = $personService;
   	}
 
-
+	/**
+	 * Renders HTML page on GET
+	 * which describes person.
+	 */
+  	
     public function retrieveAction ( )
     {
         $request = $this->getRequest( );
@@ -51,6 +64,10 @@ extends ApplicationController
         $this->getResponse( )->setStatusCode(405);
         return array('message' => 'Method not allowed.');
     }
+    
+    /**
+     * Renders HTML page describing personal profile for logged in user.
+     */
 
     public function myselfAction ( )
     {

@@ -7,7 +7,7 @@ use Zend\Form\Form;
 class ContactDestroyForm
 extends Form
 {
-	public function __construct ($name)
+	public function __construct ($name = null)
 	{
 		parent::__construct($name);
 		$this->add

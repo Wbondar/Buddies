@@ -8,11 +8,14 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * E-mail address entity.
- * Each person may own zero or more e-mail addresses. 
+ * Each e-mail address corresponds to one and only one person.
  * @Entity
+ * @Table(uniqueConstraints={@UniqueConstraint(columns={"owner_id", "id"})})
  */
 
 class EMailAddress
