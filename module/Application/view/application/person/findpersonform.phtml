@@ -1,0 +1,10 @@
+<section>
+	<h1>Find person.</h1>
+	<form method='GET' action='<?php echo $this->url('application', array('controller' => 'person', 'action' => 'retrieve')); ?>'>
+		<label>
+			Name of a person to search for.
+			<input name='trait' required />
+		</label>
+		<input type='submit' />
+	</form>
+</section>

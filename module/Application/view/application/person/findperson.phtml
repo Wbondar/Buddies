@@ -1,13 +1,7 @@
-<section>
-	<h1>Find person.</h1>
-	<form method='GET' action='<?php echo $this->url('application', array('controller' => 'person', 'action' => 'retrieve')); ?>'>
-		<label>
-			Name of person to search for.
-			<input name='trait' required />
-		</label>
-		<input type='submit' />
-	</form>
-</section>
+<aside>
+	<?php echo $this->render('application/person/findpersonform'); ?>
+</aside>
+<main>
 <?php if ($persons != null): ?>
 	<?php foreach ($persons as $person): ?>
 		<article id='<?php echo $person->getId( ); ?>'>
@@ -20,3 +14,4 @@
 		</article>
 	<?php endforeach ?>
 <?php endif ?>
+</main>
