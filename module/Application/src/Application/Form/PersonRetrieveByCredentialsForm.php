@@ -3,6 +3,7 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
+use Zend\InputFilter\InputFilter;
 
 class PersonRetrieveByCredentialsForm
 extends Form
@@ -21,6 +22,10 @@ extends Form
 			        , 'required' => 'required'
 			        , 'pattern'  => '^[a-zA-Z][a-zA-Z0-9-_\.]{2,40}$'
 			    )
+			    , 'options' => array 
+			    (
+			    	'label' => 'Search query.'
+			    )
 			)
 		)
 		;
@@ -30,6 +35,10 @@ extends Form
 			(
  				  'name' => 'submit'
 				, 'type' => 'submit'
+				, 'attributes' => array 
+				(
+					'value' => 'Search'
+				) 
 			)
 		)
 		;

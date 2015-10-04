@@ -56,6 +56,8 @@ extends ApplicationController
              {
                 $contact = $this->contactService->create($source, $this->params( )->fromPost("id"));
                 return $this->redirectToPersonalProfile( );
+             } else {
+                $this->layout( )->messages = $form->getMessages( );
              }
          } else if ($request->isGet( )) {
             if ($target = $this->personService->retrieve($this->params( )->fromRoute("id")))

@@ -1,0 +1,83 @@
+nav
+{
+	background-color: crimson;
+	margin: 0;
+	padding: 0;
+}
+
+nav a 
+{
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+	padding-left: 16%;
+}
+
+.errors
+{
+	border: 3px dashed maroon;
+	margin: 1em;
+}
+
+.hidden
+{
+	display: none;
+	z-index: -9999999999999;
+}
+
+body
+{
+	background-color: beige;
+	width: 100%;
+	margin: 0;
+}
+
+main
+{
+	padding: 1em;
+	max-width: 11in;
+	margin: 0 auto;
+}
+
+main > article, main > section
+{
+	background-color: white;
+	border: 1px solid lightgray;
+	padding-bottom: 1em;
+}
+
+aside
+{
+	width: 100%;
+	padding-bottom: 1em;
+	overflow: hidden;
+	background-color: lightcoral;
+	color: white;
+	box-shadow: 0px 0.1em 0.1em #482626 inset;
+}
+
+aside > article, aside > section
+{
+	width: 100%;
+	max-width: 3in;
+	float: left;
+	margin: 0 auto;
+}
+
+input
+{
+	display: block;
+}
+
+footer
+{
+	margin-top: 1em;
+	color: gray;
+	background-color:white;
+	border-top: 0.1em solid hotpink;
+	text-align: center;
+	vertical-align: center;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+}

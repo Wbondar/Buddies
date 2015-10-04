@@ -12,6 +12,7 @@ use Application\Form\CredentialsUpdateForm;
 use Application\Form\PersonCreateForm;
 use Application\Form\EMailAddressCreateForm;
 use Application\Form\PhoneNumberCreateForm;
+use Application\Form\PersonRetrieveByCredentialsForm;
 
 /**
  * Controller, responsible for retrieving data about persons from the system.
@@ -56,13 +57,29 @@ extends ApplicationController
                 }
                 $this->getResponse( )->setStatusCode(404);
                 return array ('message' => 'Could not find person.');
-            } else {
-                $persons = $this->personService->retrieveWithCredentialsLike($this->params( )->fromQuery("trait"));
-                return array ('persons' => $persons);
             }
         }
         $this->getResponse( )->setStatusCode(405);
         return array('message' => 'Method not allowed.');
+    }
+
+    public function findAction ( )
+    {
+        $request = $this->getRequest( );
+        $form = new PersonRetrieveByCredentialsForm ( );
+        if ($request->isGet( ))
+        {
+            $form->setData($request->getQuery( ));
+            if ($form->isValid( ))
+            {
+                $persons = $this->personService->retrieveWithCredentialsLike($form->getData( )['trait']);
+            } else {
+                $this->layout( )->messages = $form->getMessages( );
+            }
+        } else {
+            $this->getResponse( )->setStatusCode(405);
+        }
+        return array ('findPersonForm' => $form, 'persons' => $persons);
     }
     
     /**
@@ -82,6 +99,7 @@ extends ApplicationController
               , 'emailAddressCreateForm' => new EMailAddressCreateForm ( )
               , 'phoneNumberCreateForm'  => new PhoneNumberCreateForm ( )
               , 'credentialsUpdateForm'  => new CredentialsUpdateForm ( )
+              , 'findPersonForm'         => new PersonRetrieveByCredentialsForm ( )
             );
         }
         $this->getResponse( )->setStatusCode(400);

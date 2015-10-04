@@ -1,0 +1,22 @@
+<section>
+	<h1>Find person.</h1>
+	<?php
+		$findPersonForm
+			->setAttribute
+			(
+				'action'
+				, $this->url('application', array('controller' => 'person', 'action' => 'find'))
+			);
+		$findPersonForm
+			->setAttribute
+			(
+				'method'
+				, 'GET'
+			);
+		$findPersonForm->prepare();
+		echo $this->form()->openTag($findPersonForm);
+		echo $this->formRow($findPersonForm->get('trait'));
+		echo $this->formSubmit($findPersonForm->get('submit'));
+		echo $this->form()->closeTag();
+	?>
+</section>

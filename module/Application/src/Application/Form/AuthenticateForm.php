@@ -5,7 +5,7 @@ namespace Application\Form;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
-class AccountCreateForm
+class AuthenticateForm
 extends ApplicationCAPTCHAForm
 {
 	private static $CUSTOM_INPUTFILTER;
@@ -77,46 +77,6 @@ extends ApplicationCAPTCHAForm
 					),
 				)
 			);
-			$inputFilter->add
-			(
-				array
-				(
-					'name'     => 'password_confirmation',
-					'required' => true,
-					'filters'  => array
-					(
-						array
-						(
-							'name' => 'StripTags'
-						),
-						array
-						(
-							'name' => 'StringTrim'
-						),
-					),
-					'validators' => array
-					(
-						array
-						(
-							'name'    => 'StringLength',
-							'options' => array
-							(
-								'encoding' => 'UTF-8',
-								'min'      => 8,
-								'max'      => 100,
-							),
-						),
-						array
-						(
-							'name'    => 'Identical',
-							'options' => array
-							(
-								'token' => 'password'
-							),
-						),
-					),
-				)
-			);	
 			static::$CUSTOM_INPUTFILTER = $inputFilter;
 		}
 		return static::$CUSTOM_INPUTFILTER;
@@ -167,36 +127,16 @@ extends ApplicationCAPTCHAForm
 		(
 			array 
 			(
-				  'name' => 'password_confirmation'
-				, 'attributes' => array
-				(
-			        'type' => 'password',
-			        'required' => 'required',
-			        'minlength' => '8',
-			        'maxlength' => '100'
-			    )
-			    , 'options' => array 
-			    (
-			    	'label' => 'Confirmation of the password.'
-			    )
-			)
-		)
-		;
-		$this->addCAPTCHA( )
-		;
-		$this->add
-		(
-			array 
-			(
  				  'name' => 'submit'
 				, 'type' => 'submit'
-	            , 'attributes' => array
-	            (
-	                 'value' => 'Sign up'
-	            )
+				, 'attributes' => array 
+				(
+					'value' => 'Log in'
+				)
 			)
 		)
 		;
+		$this->addCAPTCHA( );
 		$this->setInputFilter(static::getCustomInputFilter( ));
 	}
 }

@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Application\Service\CredentialsService;
+use Application\Form\CredentialsUpdateForm;
 
 /**
  * Controller, responsible for updating name of a perosn.
@@ -26,7 +27,7 @@ extends ApplicationController
 	
 	/**
 	 * Updates credentials (that is name) of a logged in person on POST.
-	 * Redirects to personal profile page regardless of the outcome. 
+	 * Redirects to personal profile page on success. 
 	 */
 
     public function updateAction ()
@@ -36,10 +37,18 @@ extends ApplicationController
     	{
 	    	if ($this->isAuthenticated( ))
 	    	{
-		    	$person = $this->identity( )->getPerson( );
-		    	$nameFirst = $this->params( )->fromPost('nameFirst');
-		    	$nameLast = $this->params( )->fromPost('nameLast');
-		        $this->credentialsService->update($person, $nameFirst, $nameLast);	
+         		$form = new CredentialsUpdateForm( );
+            	$form->setData($request->getPost());
+            	if ($form->isValid( ))
+            	{
+			    	$person = $this->identity( )->getPerson( );
+			    	$nameFirst = $form->getData( )['nameFirst'];
+			    	$nameLast = $form->getData( )['nameLast'];
+			        $this->credentialsService->update($person, $nameFirst, $nameLast);	
+            	} else {
+                	$this->layout( )->messages = $form->getMessages( );
+                	return array ('form' => $form);
+            	}
 	    	}	
     	}
     	return $this->redirectToPersonalProfile( );

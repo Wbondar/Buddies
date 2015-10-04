@@ -22,6 +22,10 @@ extends Form
 			        , 'pattern'  => '\d{3}[\-]\d{3}[\-]\d{3}'
 			        , 'placeholder' => '###-###-###'
 			    )
+			    , 'options' => array 
+			    (
+			    	'label' => 'Phone number.'
+			    )
 			)
 		)
 		;
@@ -31,6 +35,10 @@ extends Form
 			(
 				  'name' => 'submit'
 				, 'type' => 'submit'
+				, 'attributes' => array 
+				(
+					'value' => 'Add'
+				)
 			)
 		)
 		;

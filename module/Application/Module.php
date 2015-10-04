@@ -36,4 +36,22 @@ class Module
             ),
         );
     }
+
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                /* 
+                 * Disables default rendering of error messages in order to
+                 * implement custom rendering.
+                 */
+                'formRow' => function($sm) {
+                    $helper = new \Zend\Form\View\Helper\FormRow();
+                    $helper->setRenderErrors(false);
+                    return $helper;
+                }
+            ),
+        );
+    }
 }
