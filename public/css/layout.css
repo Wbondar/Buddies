@@ -69,7 +69,7 @@ input
 	display: block;
 }
 
-footer
+body > footer
 {
 	margin-top: 1em;
 	color: gray;
@@ -78,6 +78,7 @@ footer
 	text-align: center;
 	vertical-align: center;
 	width: 100%;
-	position: absolute;
+	float: top;
+	left: 0px;
 	bottom: 0px;
 }
