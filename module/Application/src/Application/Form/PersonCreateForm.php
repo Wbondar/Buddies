@@ -4,6 +4,10 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 
+/**
+ * The class is deprecated.
+ */
+
 class PersonCreateForm
 extends Form
 {

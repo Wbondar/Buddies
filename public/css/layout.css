@@ -13,6 +13,18 @@ nav a
 	padding-left: 16%;
 }
 
+.errors
+{
+	border: 3px dashed maroon;
+	margin: 1em;
+}
+
+.hidden
+{
+	display: none;
+	z-index: -9999999999999;
+}
+
 body
 {
 	background-color: beige;
@@ -52,6 +64,11 @@ aside > article, aside > section
 	margin: 0 auto;
 }
 
+input
+{
+	display: block;
+}
+
 footer
 {
 	margin-top: 1em;
@@ -61,4 +78,6 @@ footer
 	text-align: center;
 	vertical-align: center;
 	width: 100%;
+	position: absolute;
+	bottom: 0px;
 }

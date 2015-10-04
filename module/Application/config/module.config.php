@@ -29,7 +29,7 @@ return array(
                      , 'defaults' => array
                      (
                            'controller' => 'Application\Controller\Person'
-                         , 'action'     => 'retrieve'
+                         , 'action'     => 'find'
                      )
                  )
             )

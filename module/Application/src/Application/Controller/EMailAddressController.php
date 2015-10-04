@@ -5,6 +5,8 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Application\Form\EMailAddressCreateForm;
+
 /**
  * Controller, responsible for creation and destruction of e-mail addresses.
  * 
@@ -24,25 +26,41 @@ extends ApplicationController
 	
 	/**
 	 * Creates new e-mail address and 
-	 * adds it to the set of e-mail addresses of a currently logged in user.
-	 * Does not check validity.
-	 * Redirects to the personal profile regardless of the outcome.
+	 * adds it to the set of e-mail addresses of a currently logged in user
+	 * on a POST request.
+	 * Redirects to the personal profile on success.
 	 */
 
     public function createAction ()
     {
-    	if ($account = $this->identity( ))
+    	$request = $this->getRequest( );
+    	if ($request->isPost( ))
     	{
-    		$this->emailAddressService->create($account->getPerson( ), $this->params( )->fromPost('value'));
-    		return $this->redirectToPersonalProfile( );
+	    	if ($account = $this->identity( ))
+	    	{
+	    		if ($person = $account->getPerson( ))
+	    		{
+	    			$form = new EMailAddressCreateForm( );
+	    			$form->setData($request->getPost( ));
+	    			if ($form->isValid( ))
+	    			{
+	    				$value = $form->getData( )['value'];
+			    		$this->emailAddressService->create($person, $value);
+			    		return $this->redirectToPersonalProfile( );
+	    			} else {
+                		$this->layout( )->messages = $form->getMessages( );
+                		return array ('form' => $form);
+            		}
+	    		}
+	    	}
     	}
     	return $this->redirectToAuthentication( );
     }
 	
 	/**
 	 * Destroys an e-mail address and 
-	 * removes it from the set of e-mail addresses of a currently logged in user.
-	 * Does not check validity.
+	 * removes it from the set of e-mail addresses of a currently logged in user
+	 * on a POST request.
 	 * Redirects to the personal profile regardless of the outcome.
 	 */
 

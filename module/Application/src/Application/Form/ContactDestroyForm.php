@@ -32,6 +32,10 @@ extends Form
 			(
 				  'name' => 'submit'
 				, 'type' => 'submit'
+				, 'attributes' => array 
+				(
+					'value' => 'Disconnect'
+				)
 			)
 		)
 		;

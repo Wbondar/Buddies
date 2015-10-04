@@ -1,0 +1,18 @@
+<main>
+<section>
+<h1>Create new e-mail address.</h1>
+<?php
+	$form
+		->setAttribute
+		(
+			'action'
+			, $this->url('application', array('controller' => 'emailaddress', 'action' => 'create'))
+		);
+	$form->prepare();
+	echo $this->form()->openTag($form);
+	echo $this->formRow($form->get('value'));
+	echo $this->formSubmit($form->get('submit'));
+	echo $this->form()->closeTag();
+?>
+</section>
+</main>

@@ -27,19 +27,34 @@ extends ApplicationController
 		
 	/**
 	 * Creates new phone number and 
-	 * adds it to the set of phone numbers of a currently logged in user.
-	 * Does not check validity.
-	 * Redirects to the personal profile regardless of the outcome.
+	 * adds it to the set of phone numbers of a currently logged in user on a POST request.
+	 * Redirects to the personal profile on success.
 	 */
 
     public function createAction ()
     {
-    	if ($account = $this->identity( ))
-    	{
-    		$this->phoneNumberService->create($account->getPerson( ), $this->params( )->fromPost('value'));
-    		return $this->redirectToPersonalProfile( );
-    	}
-    	return $this->redirectToAuthentication( );
+        $request = $this->getRequest( );
+        if ($request->isPost( ))
+        {
+            if ($account = $this->identity( ))
+            {
+                if ($person = $account->getPerson( ))
+                {
+                    $form = new PhoneNumberCreateForm( );
+                    $form->setData($request->getPost( ));
+                    if ($form->isValid( ))
+                    {
+                        $value = $form->getData( )['value'];
+                        $this->phoneNumberService->create($person, $value);
+                        return $this->redirectToPersonalProfile( );
+                    } else {
+                        $this->layout( )->messages = $form->getMessages( );
+                        return array ('form' => $form);
+                    }
+                }
+            }
+        }
+        return $this->redirectToAuthentication( );
     }
 
     /**

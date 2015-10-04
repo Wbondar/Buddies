@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 
 use Application\Service\AccountService;
 use Application\Form\AccountCreateForm;
+use Application\Form\AuthenticateForm;
 use Application\Form\SessionInvalidateForm;
 
 /**
@@ -45,16 +46,14 @@ extends ApplicationController
          $request = $this->getRequest();
          if ($request->isPost()) 
          {
-            // TODO Implement input filter for form.
-            //$form->setInputFilter(new AccountCreateInputFilter ( ));
             $form->setData($request->getPost());
 
             if ($form->isValid()) 
             {
                 try
                 {
-                    $username = $this->params( )->fromPost("username");
-                    $password = $this->params( )->fromPost("password");
+                    $username = $form->getData( )["username"];
+                    $password = $form->getData( )["password"];
                     $account = $this->accountService->create($username,$password);
                     if ($account) 
                     {
@@ -65,6 +64,8 @@ extends ApplicationController
                 } catch (\Exception $e) {
                     throw new \Exception ("Failed to create new account.", 400, $e);
                 }
+            } else {
+                $this->layout( )->messages = $form->getMessages( );
             }
         }
         return array('form' => $form);
@@ -84,24 +85,26 @@ extends ApplicationController
         {
             return $this->redirectToPersonalProfile( );
         }
-         $form = new AccountCreateForm( );
+         $form = new AuthenticateForm( );
 
          $request = $this->getRequest();
          if ($request->isPost()) 
          {
-            // TODO Implement input filter for form.
-            //$form->setInputFilter(new AuthenticateInputFilter ( ));
             $form->setData($request->getPost());
 
             if ($form->isValid()) 
             {
+                $username = $form->getData( )["username"];
+                $password = $form->getData( )["password"];
                 try
                 {
-                    $person = $this->accountService->authenticate($this->params( )->fromPost("username"), $this->params( )->fromPost("password"));
+                    $person = $this->accountService->authenticate($username, $password);
                     return $this->redirect()->toRoute('application', array('controller' => 'person', 'action' => 'myself'));
                 } catch (\Exception $e) {
                     throw new \Exception ("Failed to authenticate.", 400, $e);
                 }
+            } else {
+                $this->layout( )->messages = $form->getMessages( );
             }
          }
          return array('form' => $form);
@@ -120,19 +123,21 @@ extends ApplicationController
         {
             return $this->redirectToAuthentication( );
         }
-         $form = new SessionInvalidateForm( );
+        $form = new SessionInvalidateForm( );
 
-         $request = $this->getRequest();
-         if ($request->isPost()) 
-         {
-             $form->setData($request->getPost());
+        $request = $this->getRequest();
+        if ($request->isPost()) 
+        {
+            $form->setData($request->getPost());
 
-             if ($form->isValid()) 
-             {
+            if ($form->isValid()) 
+            {
                 $this->accountService->invalidateSession( );
                 return $this->redirectToAuthentication( );
-             }
-         }
-         return array('form' => $form);
+            } else {
+                $this->layout( )->messages = $form->getMessages( );
+            }
+        }
+        return array('form' => $form);
     }
 }
