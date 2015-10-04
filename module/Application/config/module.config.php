@@ -28,7 +28,7 @@ return array(
                      )
                      , 'defaults' => array
                      (
-                           'controller' => 'Application\Controller\Person'
+                           'controller' => 'person'
                          , 'action'     => 'find'
                      )
                  )
