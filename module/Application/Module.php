@@ -19,6 +19,7 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        $eventManager->attach('render', array($this, 'setLayoutTitle'));
     }
 
     public function getConfig()
@@ -53,5 +54,31 @@ class Module
                 }
             ),
         );
+    }
+
+    /**
+     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function setLayoutTitle($e)
+    {
+        $matches    = $e->getRouteMatch();
+        $action     = ucfirst($matches->getParam('action'));
+        $controller = ucfirst($matches->getParam('controller'));
+        $siteName   = 'Buddies';
+
+        // Getting the view helper manager from the application service manager
+        $viewHelperManager = $e->getApplication()->getServiceManager()->get('viewHelperManager');
+
+        // Getting the headTitle helper from the view helper manager
+        $headTitleHelper   = $viewHelperManager->get('headTitle');
+
+        // Setting a separator string for segments
+        $headTitleHelper->setSeparator(' | ');
+
+        // Setting the action, controller, module and site name as title segments
+        $headTitleHelper->append($action);
+        $headTitleHelper->append($controller);
+        $headTitleHelper->append($siteName);
     }
 }
